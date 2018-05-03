@@ -1,9 +1,6 @@
 package com.kienht.androidcleanarchitectureboilerplate.di;
 
-
-import com.kienht.domain.di.scheduler.RunOn;
-import com.kienht.domain.di.scheduler.SchedulerType;
-
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -23,21 +20,21 @@ abstract class SchedulerModule {
 
     @Singleton
     @Provides
-    @RunOn(value = SchedulerType.IO)
+    @Named("SchedulerType.IO")
     static Scheduler schedulerIO() {
         return Schedulers.io();
     }
 
     @Singleton
     @Provides
-    @RunOn(value = SchedulerType.COMPUTATION)
+    @Named("SchedulerType.COMPUTATION")
     static Scheduler schedulerComputation() {
         return Schedulers.computation();
     }
 
     @Singleton
     @Provides
-    @RunOn(value = SchedulerType.UI)
+    @Named("SchedulerType.UI")
     static Scheduler schedulerUI() {
         return AndroidSchedulers.mainThread();
     }

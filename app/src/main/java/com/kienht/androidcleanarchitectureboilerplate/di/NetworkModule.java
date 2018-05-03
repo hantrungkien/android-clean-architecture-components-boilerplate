@@ -9,7 +9,6 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.AndroidInjectionModule;
-import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
  * Note:

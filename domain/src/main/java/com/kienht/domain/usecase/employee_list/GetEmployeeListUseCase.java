@@ -1,7 +1,5 @@
 package com.kienht.domain.usecase.employee_list;
 
-import com.kienht.domain.di.scheduler.RunOn;
-import com.kienht.domain.di.scheduler.SchedulerType;
 import com.kienht.domain.model.Employee;
 import com.kienht.domain.repository.EmployeeRepository;
 import com.kienht.domain.usecase.FlowableUseCase;
@@ -9,6 +7,7 @@ import com.kienht.domain.usecase.FlowableUseCase;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
@@ -23,8 +22,8 @@ public class GetEmployeeListUseCase extends FlowableUseCase<List<Employee>> {
 
     @Inject
     public GetEmployeeListUseCase(EmployeeRepository employeeRepository,
-                                  @RunOn(SchedulerType.IO) Scheduler schedulerIO,
-                                  @RunOn(SchedulerType.UI) Scheduler schedulerUI) {
+                                  @Named("SchedulerType.IO") Scheduler schedulerIO,
+                                  @Named("SchedulerType.UI") Scheduler schedulerUI) {
         super(schedulerIO, schedulerUI);
         this.employeeRepository = employeeRepository;
     }

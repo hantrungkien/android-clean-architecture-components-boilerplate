@@ -18,6 +18,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import dagger.android.AndroidInjectionModule;
+import io.reactivex.Scheduler;
 
 /**
  * Note:
@@ -37,8 +38,9 @@ abstract class RepositoryModule {
     @Provides
     static EmployeeCache employeeCache(RoomDB roomDB,
                                        com.kienht.cache.mapper.employee.EmployeeMapper mapper,
-                                       PrefUtils prefUtils) {
-        return new EmployeeCacheImpl(roomDB, mapper, prefUtils);
+                                       PrefUtils prefUtils,
+                                       @Named("SchedulerType.COMPUTATION") Scheduler schedulerComputation) {
+        return new EmployeeCacheImpl(roomDB, mapper, prefUtils, schedulerComputation);
     }
 
     @Singleton

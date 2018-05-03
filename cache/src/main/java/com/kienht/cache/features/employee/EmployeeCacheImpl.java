@@ -1,6 +1,5 @@
 package com.kienht.cache.features.employee;
 
-
 import com.kienht.cache.PrefUtils;
 import com.kienht.cache.database.RoomDB;
 import com.kienht.cache.mapper.employee.EmployeeMapper;
@@ -8,14 +7,13 @@ import com.kienht.data.model.EmployeeEntity;
 import com.kienht.data.repository.employee.EmployeeCache;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
 import io.reactivex.Completable;
-import io.reactivex.CompletableSource;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
+import io.reactivex.Scheduler;
 import io.reactivex.Single;
 
 /**
@@ -31,13 +29,14 @@ public class EmployeeCacheImpl implements EmployeeCache {
     private RoomDB roomDB;
     private EmployeeMapper mapper;
     private PrefUtils prefUtils;
-
+    private Scheduler schedulerComputation;
 
     @Inject
-    public EmployeeCacheImpl(RoomDB roomDB, EmployeeMapper mapper, PrefUtils prefUtils) {
+    public EmployeeCacheImpl(RoomDB roomDB, EmployeeMapper mapper, PrefUtils prefUtils, Scheduler schedulerComputation) {
         this.roomDB = roomDB;
         this.mapper = mapper;
         this.prefUtils = prefUtils;
+        this.schedulerComputation = schedulerComputation;
     }
 
     @Override
@@ -49,7 +48,8 @@ public class EmployeeCacheImpl implements EmployeeCache {
                 .flatMapCompletable(employeeCacheds -> {
                     roomDB.employeeDAO().insert(employeeCacheds);
                     return Completable.complete();
-                });
+                })
+                .subscribeOn(schedulerComputation);
     }
 
     @Override
@@ -58,12 +58,14 @@ public class EmployeeCacheImpl implements EmployeeCache {
                 .flatMapPublisher(employeeCacheds -> Flowable.fromIterable(employeeCacheds)
                         .map(employeeCached -> mapper.mapFromCached(employeeCached))
                         .toList()
-                        .toFlowable());
+                        .toFlowable())
+                .subscribeOn(schedulerComputation);
     }
 
     @Override
     public Single<Boolean> isCache() {
-        return Single.defer(() -> Single.just(!roomDB.employeeDAO().getEmployees().isEmpty().blockingGet()));
+        return Single.defer(() -> Single.just(!roomDB.employeeDAO().getEmployees().isEmpty().blockingGet()))
+                .subscribeOn(schedulerComputation);
     }
 
     @Override

@@ -31,9 +31,9 @@ import dagger.android.AndroidInjector;
 
 @Singleton
 @Component(modules = {AppModule.class,
+        SchedulerModule.class,
         DataModule.class,
         NetworkModule.class,
-        SchedulerModule.class,
         RepositoryModule.class})
 interface AppComponent extends AndroidInjector<OICApplication> {
 
