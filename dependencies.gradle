@@ -1,0 +1,88 @@
+allprojects {
+    repositories {
+        jcenter()
+        google()
+    }
+    afterEvaluate {
+        tasks.withType(JavaCompile.class) {
+            options.compilerArgs << "-Xmaxerrs" << "500"
+        }
+    }
+}
+
+ext {
+    androidBuildToolsVersion = "27.0.3"
+    androidMinSdkVersion = 15
+    androidTargetSdkVersion = 27
+    androidCompileSdkVersion = 27
+
+    androidSupportVersion = '27.1.1'
+    butterKnifeVersion = '8.8.1'
+    rxJavaVersion = '2.1.8'
+    rxAndroidVersion = '2.0.1'
+    okHttp3Version = '3.10.0'
+    retrofitVersion = '2.4.0'
+    roomVersion = '1.1.0-beta3'
+    glideVersion = '3.8.0'
+    daggerVersion = '2.15'
+    lifecycleVersion = '1.1.1'
+    multidexVersion = '1.0.3'
+    javaxAnnotationVersion = '1.0'
+    javaxInjectVersion = '1'
+
+    uiDependencies = [
+            appCompatV7           : "com.android.support:appcompat-v7:${androidSupportVersion}",
+            recyclerView          : "com.android.support:recyclerview-v7:${androidSupportVersion}",
+            rx2Java               : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rx2Android            : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            butterknife           : "com.jakewharton:butterknife:${butterKnifeVersion}",
+            butterknifeProcessor  : "com.jakewharton:butterknife-compiler:${butterKnifeVersion}",
+            dagger                : "com.google.dagger:dagger:${daggerVersion}",
+            daggerAndroid         : "com.google.dagger:dagger-android:${daggerVersion}",
+            daggerAndroidSupport  : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerProcessor       : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerAndroidProcessor: "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            lifecycleExtensions   : "android.arch.lifecycle:extensions:${lifecycleVersion}",
+            lifecycleProcessor    : "android.arch.lifecycle:compiler:${lifecycleVersion}",
+            roomRx2               : "android.arch.persistence.room:rxjava2:${roomVersion}",
+            multiDex              : "com.android.support:multidex:${multidexVersion}"
+    ]
+
+    presentationDependencies = [
+            rx2Java        : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            javaxAnnotation    : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject        : "javax.inject:javax.inject:${javaxInjectVersion}",
+            lifecycleExtensions: "android.arch.lifecycle:extensions:${lifecycleVersion}",
+            lifecycleRuntime   : "android.arch.lifecycle:runtime:${lifecycleVersion}",
+            lifecycleProcessor : "android.arch.lifecycle:compiler:${lifecycleVersion}"
+    ]
+
+    domainDependencies = [
+            rx2Java        : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}"
+    ]
+
+    dataDependencies = [
+            rx2Java        : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}"
+    ]
+
+    cacheDependencies = [
+            javaxAnnotation: "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject    : "javax.inject:javax.inject:${javaxInjectVersion}",
+            room           : "android.arch.persistence.room:runtime:${roomVersion}",
+            roomProcessor  : "android.arch.persistence.room:compiler:${roomVersion}",
+            roomRx2        : "android.arch.persistence.room:rxjava2:${roomVersion}"
+    ]
+
+    remoteDependencies = [
+            javaxAnnotation      : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
+            javaxInject          : "javax.inject:javax.inject:${javaxInjectVersion}",
+            retrofit             : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitConverterGson: "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            retrofitRx2          : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
+            okhttp3Logging       : "com.squareup.okhttp3:logging-interceptor:${okHttp3Version}"
+    ]
+}

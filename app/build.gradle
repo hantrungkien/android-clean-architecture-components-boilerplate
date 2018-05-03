@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration["androidCompileSdkVersion"]
+    buildToolsVersion globalConfiguration["androidBuildToolsVersion"]
+
+    defaultConfig {
+        applicationId "com.kienht.androidcleanarchitectureboilerplate"
+        minSdkVersion globalConfiguration["androidMinSdkVersion"]
+        targetSdkVersion globalConfiguration["androidTargetSdkVersion"]
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    def uiDependencies = rootProject.ext.uiDependencies
+
+    implementation project(':presentation')
+    implementation project(':data')
+    implementation project(':cache')
+    implementation project(':remote')
+    implementation project(':domain')
+
+    implementation uiDependencies.appCompatV7
+    implementation uiDependencies.recyclerView
+    implementation uiDependencies.rx2Java
+    implementation uiDependencies.rx2Android
+    implementation uiDependencies.butterknife
+    annotationProcessor uiDependencies.butterknifeProcessor
+    implementation uiDependencies.dagger
+    implementation uiDependencies.daggerAndroid
+    implementation uiDependencies.daggerAndroidSupport
+    annotationProcessor uiDependencies.daggerProcessor
+    annotationProcessor uiDependencies.daggerAndroidProcessor
+    implementation uiDependencies.lifecycleExtensions
+    annotationProcessor uiDependencies.lifecycleProcessor
+    implementation uiDependencies.roomRx2
+    implementation uiDependencies.multiDex
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}

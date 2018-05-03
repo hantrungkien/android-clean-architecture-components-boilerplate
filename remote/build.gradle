@@ -1,0 +1,19 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':data')
+
+    def remoteDependencies = rootProject.ext.remoteDependencies
+    implementation remoteDependencies.retrofit
+    implementation remoteDependencies.retrofitConverterGson
+    implementation remoteDependencies.retrofitRx2
+    implementation remoteDependencies.okhttp3Logging
+
+    implementation remoteDependencies.javaxInject
+    implementation remoteDependencies.javaxAnnotation
+}
+
