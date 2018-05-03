@@ -26,11 +26,6 @@ public class EmployeeRemoteDataStore implements EmployeeDataStore {
     }
 
     @Override
-    public Completable clearEmployees() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public Completable saveEmployees(List<EmployeeEntity> employees) {
         throw new UnsupportedOperationException();
     }

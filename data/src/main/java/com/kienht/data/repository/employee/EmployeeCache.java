@@ -14,8 +14,6 @@ import io.reactivex.Single;
  */
 public interface EmployeeCache {
 
-    Completable clearEmployees();
-
     Completable saveEmployees(List<EmployeeEntity> employees);
 
     Flowable<List<EmployeeEntity>> getEmployees();

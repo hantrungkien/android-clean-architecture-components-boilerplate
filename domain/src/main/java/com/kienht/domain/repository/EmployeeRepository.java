@@ -13,8 +13,6 @@ import io.reactivex.Flowable;
  */
 public interface EmployeeRepository {
 
-    Completable clearEmployees();
-
     Completable saveEmployees(List<Employee> employees);
 
     Flowable<List<Employee>> getEmployeeList();

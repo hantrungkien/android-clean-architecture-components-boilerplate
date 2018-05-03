@@ -26,13 +26,9 @@ public class EmployeeCacheDataStore implements EmployeeDataStore {
     }
 
     @Override
-    public Completable clearEmployees() {
-        return employeeCache.clearEmployees();
-    }
-
-    @Override
     public Completable saveEmployees(List<EmployeeEntity> employees) {
-        return employeeCache.saveEmployees(employees);
+        return employeeCache.saveEmployees(employees)
+                .doOnComplete(() -> employeeCache.setLastCacheTime(System.currentTimeMillis()));
     }
 
     @Override

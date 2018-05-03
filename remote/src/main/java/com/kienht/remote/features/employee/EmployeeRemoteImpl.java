@@ -44,13 +44,13 @@ public class EmployeeRemoteImpl implements EmployeeRemote {
         return Single.create((SingleOnSubscribe<List<EmployeeEntity>>) e -> {
             if (!e.isDisposed()) {
                 List<EmployeeEntity> employeeEntityList = new ArrayList<EmployeeEntity>() {{
-                    add(new EmployeeEntity(0, "KienHT", ""));
-                    add(new EmployeeEntity(1, "KhacPV", ""));
-                    add(new EmployeeEntity(1, "HuyKN", ""));
+                    add(new EmployeeEntity(1, "KienHT", ""));
+                    add(new EmployeeEntity(2, "KhacPV", ""));
+                    add(new EmployeeEntity(3, "HuyKN", ""));
                 }};
 
                 e.onSuccess(employeeEntityList);
             }
-        }).toFlowable().delay(5, TimeUnit.SECONDS);
+        }).toFlowable().delay(3, TimeUnit.SECONDS);
     }
 }

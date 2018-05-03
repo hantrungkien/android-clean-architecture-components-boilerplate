@@ -20,8 +20,6 @@ import io.reactivex.Scheduler;
 public class GetEmployeeListUseCase extends FlowableUseCase<List<Employee>> {
 
     private EmployeeRepository employeeRepository;
-    private Scheduler schedulerIO;
-    private Scheduler schedulerUI;
 
     @Inject
     public GetEmployeeListUseCase(EmployeeRepository employeeRepository,

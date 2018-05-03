@@ -14,7 +14,7 @@ import javax.inject.Singleton;
 @Singleton
 public class PrefUtils {
 
-    private static final String PREF_NAME = "DEMO_PREF";
+    private static final String PREF_NAME = "OIC_PREF";
 
     private SharedPreferences prefs;
 
@@ -24,9 +24,7 @@ public class PrefUtils {
     }
 
     public interface PREF_KEY {
-        public static final String USERNAME = "USERNAME";
-        public static final String PASSWORD = "PASSWORD";
-        public static final String USER_ID = "USER_ID";
+        public static final String PREF_KEY_LAST_CACHE = "PREF_BUFFER_PACKAGE_NAME";
     }
 
     public void set(String key, String value) {

@@ -10,6 +10,7 @@ import com.kienht.cache.model.EmployeeCached;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 
 /**
  * Note:
@@ -20,8 +21,8 @@ import io.reactivex.Flowable;
 public abstract class EmployeeDAO extends BaseDAO<EmployeeCached> {
 
     @Query("SELECT * FROM " + DBConstants.Employee.TABLE_NAME + " WHERE id = :id")
-    public abstract Flowable<EmployeeCached> getUserById(int id);
+    public abstract Flowable<EmployeeCached> getEmployeeById(int id);
 
     @Query("SELECT * FROM " + DBConstants.Employee.TABLE_NAME)
-    public abstract Flowable<List<EmployeeCached>> getUserList();
+    public abstract Maybe<List<EmployeeCached>> getEmployees();
 }

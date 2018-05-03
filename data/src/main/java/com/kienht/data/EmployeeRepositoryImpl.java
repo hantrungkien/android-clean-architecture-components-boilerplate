@@ -30,30 +30,24 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Completable clearEmployees() {
-        return employeeDataStoreFactory.retrieveCacheDataStore().clearEmployees();
-    }
-
-    @Override
     public Completable saveEmployees(List<Employee> employees) {
-        return Observable.fromIterable(employees)
+        List<EmployeeEntity> list = Observable.fromIterable(employees)
                 .map(employee -> employeeMapper.mapFromEntity(employee))
                 .toList()
-                .toObservable()
-                .flatMapCompletable(employeeEntities -> {
-                    employeeDataStoreFactory.retrieveCacheDataStore().saveEmployees(employeeEntities);
-                    return Completable.complete();
-                });
+                .blockingGet();
+        return employeeDataStoreFactory.retrieveCacheDataStore().saveEmployees(list);
     }
 
     @Override
     public Flowable<List<Employee>> getEmployeeList() {
         return employeeDataStoreFactory.retrieveCacheDataStore().isCached()
-                .flatMapPublisher((Function<Boolean, Publisher<List<EmployeeEntity>>>) isCache -> employeeDataStoreFactory.retrieveDataStore(isCache).getEmployees())
-                .flatMap((Function<List<EmployeeEntity>, Publisher<List<Employee>>>) employeeEntities -> Flowable.fromIterable(employeeEntities)
-                        .map(employeeEntity -> employeeMapper.mapToEntity(employeeEntity))
-                        .toList()
-                        .toFlowable())
+                .flatMapPublisher((Function<Boolean, Publisher<List<EmployeeEntity>>>) isCache ->
+                        employeeDataStoreFactory.retrieveDataStore(isCache).getEmployees())
+                .flatMap((Function<List<EmployeeEntity>, Publisher<List<Employee>>>) employeeEntities ->
+                        Flowable.fromIterable(employeeEntities)
+                                .map(employeeEntity -> employeeMapper.mapToEntity(employeeEntity))
+                                .toList()
+                                .toFlowable())
                 .flatMap(employees -> saveEmployees(employees).toSingle(() -> employees).toFlowable());
     }
 }

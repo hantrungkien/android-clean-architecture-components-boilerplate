@@ -28,7 +28,6 @@ abstract class DataModule {
     static RoomDB roomDB(OICApplication demoApplication) {
         return Room.databaseBuilder(demoApplication, RoomDB.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
-                .allowMainThreadQueries()
                 .build();
     }
 }
