@@ -1,6 +1,6 @@
 package com.kienht.data.repository.employee;
 
-import com.kienht.data.model.EmployeeEntity;
+import com.kienht.data.model.EmployeeData;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import io.reactivex.Single;
  */
 public interface EmployeeCache {
 
-    Completable saveEmployees(List<EmployeeEntity> employees);
+    Completable saveEmployees(List<EmployeeData> employees);
 
-    Flowable<List<EmployeeEntity>> getEmployees();
+    Flowable<List<EmployeeData>> getEmployees();
 
     Single<Boolean> isCache();
 

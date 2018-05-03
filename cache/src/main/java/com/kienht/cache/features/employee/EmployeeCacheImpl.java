@@ -2,8 +2,8 @@ package com.kienht.cache.features.employee;
 
 import com.kienht.cache.PrefUtils;
 import com.kienht.cache.database.RoomDB;
-import com.kienht.cache.mapper.employee.EmployeeMapper;
-import com.kienht.data.model.EmployeeEntity;
+import com.kienht.cache.mapper.employee.EmployeeCacheMapper;
+import com.kienht.data.model.EmployeeData;
 import com.kienht.data.repository.employee.EmployeeCache;
 
 import java.util.List;
@@ -27,12 +27,12 @@ public class EmployeeCacheImpl implements EmployeeCache {
     private final long EXPIRATION_TIME = 60 * 10 * 1000;
 
     private RoomDB roomDB;
-    private EmployeeMapper mapper;
+    private EmployeeCacheMapper mapper;
     private PrefUtils prefUtils;
     private Scheduler schedulerComputation;
 
     @Inject
-    public EmployeeCacheImpl(RoomDB roomDB, EmployeeMapper mapper, PrefUtils prefUtils, Scheduler schedulerComputation) {
+    public EmployeeCacheImpl(RoomDB roomDB, EmployeeCacheMapper mapper, PrefUtils prefUtils, Scheduler schedulerComputation) {
         this.roomDB = roomDB;
         this.mapper = mapper;
         this.prefUtils = prefUtils;
@@ -40,7 +40,7 @@ public class EmployeeCacheImpl implements EmployeeCache {
     }
 
     @Override
-    public Completable saveEmployees(List<EmployeeEntity> employees) {
+    public Completable saveEmployees(List<EmployeeData> employees) {
         return Observable.fromIterable(employees)
                 .map(employeeEntity -> mapper.mapToCached(employeeEntity))
                 .toList()
@@ -53,7 +53,7 @@ public class EmployeeCacheImpl implements EmployeeCache {
     }
 
     @Override
-    public Flowable<List<EmployeeEntity>> getEmployees() {
+    public Flowable<List<EmployeeData>> getEmployees() {
         return roomDB.employeeDAO().getEmployees()
                 .flatMapPublisher(employeeCacheds -> Flowable.fromIterable(employeeCacheds)
                         .map(employeeCached -> mapper.mapFromCached(employeeCached))

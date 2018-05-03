@@ -4,16 +4,16 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.kienht.domain.model.Employee;
-import com.kienht.domain.usecase.employee_list.GetEmployeeListUseCase;
+import com.kienht.domain.model.EmployeeDomain;
+import com.kienht.domain.usecase.employee_list.EmployeeListUseCase;
 import com.kienht.presentation.data.Resource;
 import com.kienht.presentation.data.ResourceState;
-import com.kienht.presentation.mapper.employee.EmployeeMapper;
-import com.kienht.presentation.model.EmployeeView;
+import com.kienht.presentation.mapper.employee.EmployeePresentMapper;
+import com.kienht.presentation.model.EmployeePresent;
 
 import java.util.List;
 
-import javax.inject.Named;
+import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.subscribers.DisposableSubscriber;
@@ -24,41 +24,42 @@ import io.reactivex.subscribers.DisposableSubscriber;
  */
 public class HomeViewModel extends ViewModel {
 
-    private GetEmployeeListUseCase getEmployeeListUseCase;
-    private EmployeeMapper employeeMapper;
+    private EmployeeListUseCase employeeListUseCase;
+    private EmployeePresentMapper EmployeePresentMapper;
 
-    private MutableLiveData<Resource<List<EmployeeView>>> employeesLiveData = new MutableLiveData<>();
+    private MutableLiveData<Resource<List<EmployeePresent>>> employeesLiveData = new MutableLiveData<>();
 
-    public HomeViewModel(GetEmployeeListUseCase getEmployeeListUseCase, EmployeeMapper employeeMapper) {
-        this.getEmployeeListUseCase = getEmployeeListUseCase;
-        this.employeeMapper = employeeMapper;
+    @Inject
+    public HomeViewModel(EmployeeListUseCase employeeListUseCase, EmployeePresentMapper EmployeePresentMapper) {
+        this.employeeListUseCase = employeeListUseCase;
+        this.EmployeePresentMapper = EmployeePresentMapper;
     }
 
     @Override
     public void onCleared() {
-        getEmployeeListUseCase.dispose();
+        employeeListUseCase.dispose();
         super.onCleared();
     }
 
-    public LiveData<Resource<List<EmployeeView>>> getEmployees() {
+    public LiveData<Resource<List<EmployeePresent>>> getEmployees() {
         fetchEmployees();
         return employeesLiveData;
     }
 
     public void fetchEmployees() {
         employeesLiveData.postValue(new Resource<>(ResourceState.LOADING, null, null));
-        getEmployeeListUseCase.execute(new EmployeeSubscriber());
+        employeeListUseCase.execute(new EmployeeSubscriber());
     }
 
-    private class EmployeeSubscriber extends DisposableSubscriber<List<Employee>> {
+    private class EmployeeSubscriber extends DisposableSubscriber<List<EmployeeDomain>> {
 
         @Override
-        public void onNext(List<Employee> employees) {
-            List<EmployeeView> employeeViews = Observable.fromIterable(employees)
-                    .map(employee -> employeeMapper.mapToView(employee))
+        public void onNext(List<EmployeeDomain> employeeDomains) {
+            List<EmployeePresent> employeePresents = Observable.fromIterable(employeeDomains)
+                    .map(employee -> EmployeePresentMapper.mapToView(employee))
                     .toList()
                     .blockingGet();
-            employeesLiveData.postValue(new Resource<>(ResourceState.SUCCESS, employeeViews, null));
+            employeesLiveData.postValue(new Resource<>(ResourceState.SUCCESS, employeePresents, null));
         }
 
         @Override

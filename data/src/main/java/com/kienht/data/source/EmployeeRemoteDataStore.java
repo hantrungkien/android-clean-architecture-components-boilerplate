@@ -1,6 +1,6 @@
 package com.kienht.data.source;
 
-import com.kienht.data.model.EmployeeEntity;
+import com.kienht.data.model.EmployeeData;
 import com.kienht.data.repository.employee.EmployeeDataStore;
 import com.kienht.data.repository.employee.EmployeeRemote;
 
@@ -26,12 +26,12 @@ public class EmployeeRemoteDataStore implements EmployeeDataStore {
     }
 
     @Override
-    public Completable saveEmployees(List<EmployeeEntity> employees) {
+    public Completable saveEmployees(List<EmployeeData> employees) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Flowable<List<EmployeeEntity>> getEmployees() {
+    public Flowable<List<EmployeeData>> getEmployees() {
         return employeeRemote.getEmployees();
     }
 

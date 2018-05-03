@@ -5,7 +5,7 @@ import android.arch.persistence.room.Query;
 
 import com.kienht.cache.dao.BaseDAO;
 import com.kienht.cache.database.constants.DBConstants;
-import com.kienht.cache.model.EmployeeCached;
+import com.kienht.cache.model.EmployeeCache;
 
 import java.util.List;
 
@@ -18,11 +18,11 @@ import io.reactivex.Maybe;
  */
 
 @Dao
-public abstract class EmployeeDAO extends BaseDAO<EmployeeCached> {
+public abstract class EmployeeDAO extends BaseDAO<EmployeeCache> {
 
     @Query("SELECT * FROM " + DBConstants.Employee.TABLE_NAME + " WHERE id = :id")
-    public abstract Flowable<EmployeeCached> getEmployeeById(int id);
+    public abstract Flowable<EmployeeCache> getEmployeeById(int id);
 
     @Query("SELECT * FROM " + DBConstants.Employee.TABLE_NAME)
-    public abstract Maybe<List<EmployeeCached>> getEmployees();
+    public abstract Maybe<List<EmployeeCache>> getEmployees();
 }

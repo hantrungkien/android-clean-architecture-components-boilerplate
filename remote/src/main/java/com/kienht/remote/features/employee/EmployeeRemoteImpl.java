@@ -1,28 +1,19 @@
 package com.kienht.remote.features.employee;
 
-import com.kienht.data.model.EmployeeEntity;
+import com.kienht.data.model.EmployeeData;
 import com.kienht.data.repository.employee.EmployeeRemote;
 import com.kienht.remote.OICService;
-import com.kienht.remote.mapper.employee.EmployeeMapper;
-import com.kienht.remote.model.EmployeeModel;
-import com.kienht.remote.response.EmployeeListResponse;
-
-import org.reactivestreams.Publisher;
+import com.kienht.remote.mapper.employee.EmployeeRemoteMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
-import io.reactivex.functions.Function;
 
 /**
  * Note:
@@ -31,25 +22,25 @@ import io.reactivex.functions.Function;
 public class EmployeeRemoteImpl implements EmployeeRemote {
 
     private OICService oicService;
-    private EmployeeMapper employeeMapper;
+    private EmployeeRemoteMapper EmployeeRemoteMapper;
 
     @Inject
-    public EmployeeRemoteImpl(OICService oicService, EmployeeMapper employeeMapper) {
+    public EmployeeRemoteImpl(OICService oicService, EmployeeRemoteMapper EmployeeRemoteMapper) {
         this.oicService = oicService;
-        this.employeeMapper = employeeMapper;
+        this.EmployeeRemoteMapper = EmployeeRemoteMapper;
     }
 
     @Override
-    public Flowable<List<EmployeeEntity>> getEmployees() {
-        return Single.create((SingleOnSubscribe<List<EmployeeEntity>>) e -> {
+    public Flowable<List<EmployeeData>> getEmployees() {
+        return Single.create((SingleOnSubscribe<List<EmployeeData>>) e -> {
             if (!e.isDisposed()) {
-                List<EmployeeEntity> employeeEntityList = new ArrayList<EmployeeEntity>() {{
-                    add(new EmployeeEntity(1, "KienHT", ""));
-                    add(new EmployeeEntity(2, "KhacPV", ""));
-                    add(new EmployeeEntity(3, "HuyKN", ""));
+                List<EmployeeData> employeeDataList = new ArrayList<EmployeeData>() {{
+                    add(new EmployeeData(1, "KienHT", ""));
+                    add(new EmployeeData(2, "KhacPV", ""));
+                    add(new EmployeeData(3, "HuyKN", ""));
                 }};
 
-                e.onSuccess(employeeEntityList);
+                e.onSuccess(employeeDataList);
             }
         }).toFlowable().delay(3, TimeUnit.SECONDS);
     }

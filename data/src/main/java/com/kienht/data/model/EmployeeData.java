@@ -1,16 +1,15 @@
-package com.kienht.androidcleanarchitectureboilerplate.model.employee;
+package com.kienht.data.model;
 
 /**
  * Note:
- * Created by kienht on 5/3/18.
+ * Created by kienht on 5/2/18.
  */
-public class EmployeeViewModel {
-
+public class EmployeeData {
     private int id;
     private String name;
     private String imgUrl;
 
-    public EmployeeViewModel(int id, String name, String imgUrl) {
+    public EmployeeData(int id, String name, String imgUrl) {
         this.id = id;
         this.name = name;
         this.imgUrl = imgUrl;

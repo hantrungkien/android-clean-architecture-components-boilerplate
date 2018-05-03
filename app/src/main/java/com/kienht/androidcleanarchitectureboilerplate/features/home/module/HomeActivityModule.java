@@ -5,11 +5,9 @@ import android.app.Activity;
 import com.kienht.androidcleanarchitectureboilerplate.di.scope.PerActivity;
 import com.kienht.androidcleanarchitectureboilerplate.features.base.module.BaseActivityModule;
 import com.kienht.androidcleanarchitectureboilerplate.features.home.HomeActivity;
-import com.kienht.domain.usecase.employee_list.GetEmployeeListUseCase;
+import com.kienht.domain.usecase.employee_list.EmployeeListUseCase;
 import com.kienht.presentation.features.home.HomeViewModelFactory;
-import com.kienht.presentation.mapper.employee.EmployeeMapper;
-
-import javax.inject.Named;
+import com.kienht.presentation.mapper.employee.EmployeePresentMapper;
 
 import dagger.Binds;
 import dagger.Module;
@@ -28,7 +26,7 @@ public abstract class HomeActivityModule {
 
     @Provides
     @PerActivity
-    static HomeViewModelFactory homeViewModelFactory(GetEmployeeListUseCase employeeListUseCase, EmployeeMapper employeeMapper) {
-        return new HomeViewModelFactory(employeeListUseCase, employeeMapper);
+    static HomeViewModelFactory homeViewModelFactory(EmployeeListUseCase employeeListUseCase, EmployeePresentMapper EmployeePresentMapper) {
+        return new HomeViewModelFactory(employeeListUseCase, EmployeePresentMapper);
     }
 }

@@ -1,15 +1,16 @@
-package com.kienht.presentation.model;
+package com.kienht.domain.model;
 
 /**
  * Note:
- * Created by kienht on 5/1/18.
+ * Created by kienht on 5/2/18.
  */
-public class EmployeeView {
+public class EmployeeDomain {
+
     private int id;
     private String name;
     private String imgUrl;
 
-    public EmployeeView(int id, String name, String imgUrl) {
+    public EmployeeDomain(int id, String name, String imgUrl) {
         this.id = id;
         this.name = name;
         this.imgUrl = imgUrl;

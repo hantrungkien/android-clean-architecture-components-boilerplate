@@ -1,6 +1,6 @@
 package com.kienht.data.source;
 
-import com.kienht.data.model.EmployeeEntity;
+import com.kienht.data.model.EmployeeData;
 import com.kienht.data.repository.employee.EmployeeCache;
 import com.kienht.data.repository.employee.EmployeeDataStore;
 
@@ -26,13 +26,13 @@ public class EmployeeCacheDataStore implements EmployeeDataStore {
     }
 
     @Override
-    public Completable saveEmployees(List<EmployeeEntity> employees) {
+    public Completable saveEmployees(List<EmployeeData> employees) {
         return employeeCache.saveEmployees(employees)
                 .doOnComplete(() -> employeeCache.setLastCacheTime(System.currentTimeMillis()));
     }
 
     @Override
-    public Flowable<List<EmployeeEntity>> getEmployees() {
+    public Flowable<List<EmployeeData>> getEmployees() {
         return employeeCache.getEmployees();
     }
 

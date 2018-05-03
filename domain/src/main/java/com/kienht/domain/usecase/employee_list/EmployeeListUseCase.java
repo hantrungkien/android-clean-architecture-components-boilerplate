@@ -1,6 +1,6 @@
 package com.kienht.domain.usecase.employee_list;
 
-import com.kienht.domain.model.Employee;
+import com.kienht.domain.model.EmployeeDomain;
 import com.kienht.domain.repository.EmployeeRepository;
 import com.kienht.domain.usecase.FlowableUseCase;
 
@@ -16,20 +16,20 @@ import io.reactivex.Scheduler;
  * Note:
  * Created by kienht on 5/2/18.
  */
-public class GetEmployeeListUseCase extends FlowableUseCase<List<Employee>> {
+public class EmployeeListUseCase extends FlowableUseCase<List<EmployeeDomain>> {
 
     private EmployeeRepository employeeRepository;
 
     @Inject
-    public GetEmployeeListUseCase(EmployeeRepository employeeRepository,
-                                  @Named("SchedulerType.IO") Scheduler schedulerIO,
-                                  @Named("SchedulerType.UI") Scheduler schedulerUI) {
+    public EmployeeListUseCase(EmployeeRepository employeeRepository,
+                               @Named("SchedulerType.IO") Scheduler schedulerIO,
+                               @Named("SchedulerType.UI") Scheduler schedulerUI) {
         super(schedulerIO, schedulerUI);
         this.employeeRepository = employeeRepository;
     }
 
     @Override
-    protected Flowable<List<Employee>> buildUseCaseObservable() {
+    protected Flowable<List<EmployeeDomain>> buildUseCaseObservable() {
         return employeeRepository.getEmployeeList();
     }
 }

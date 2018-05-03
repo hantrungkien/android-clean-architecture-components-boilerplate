@@ -1,6 +1,6 @@
 package com.kienht.data.repository.employee;
 
-import com.kienht.data.model.EmployeeEntity;
+import com.kienht.data.model.EmployeeData;
 
 import java.util.List;
 
@@ -12,6 +12,6 @@ import io.reactivex.Flowable;
  */
 public interface EmployeeRemote {
 
-    Flowable<List<EmployeeEntity>> getEmployees();
+    Flowable<List<EmployeeData>> getEmployees();
 
 }

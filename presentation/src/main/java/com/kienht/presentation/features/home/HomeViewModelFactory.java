@@ -4,11 +4,8 @@ import android.arch.lifecycle.ViewModel;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
-import com.kienht.domain.usecase.employee_list.GetEmployeeListUseCase;
-import com.kienht.presentation.mapper.employee.EmployeeMapper;
-
-import javax.inject.Inject;
-import javax.inject.Named;
+import com.kienht.domain.usecase.employee_list.EmployeeListUseCase;
+import com.kienht.presentation.mapper.employee.EmployeePresentMapper;
 
 /**
  * Note:
@@ -17,19 +14,19 @@ import javax.inject.Named;
 
 public class HomeViewModelFactory implements ViewModelProvider.Factory {
 
-    private GetEmployeeListUseCase getEmployeeListUseCase;
-    private EmployeeMapper employeeMapper;
+    private EmployeeListUseCase employeeListUseCase;
+    private EmployeePresentMapper EmployeePresentMapper;
 
-    public HomeViewModelFactory(GetEmployeeListUseCase getEmployeeListUseCase, EmployeeMapper employeeMapper) {
-        this.getEmployeeListUseCase = getEmployeeListUseCase;
-        this.employeeMapper = employeeMapper;
+    public HomeViewModelFactory(EmployeeListUseCase employeeListUseCase, EmployeePresentMapper EmployeePresentMapper) {
+        this.employeeListUseCase = employeeListUseCase;
+        this.EmployeePresentMapper = EmployeePresentMapper;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(HomeViewModel.class)) {
-            return (T) new HomeViewModel(getEmployeeListUseCase, employeeMapper);
+            return (T) new HomeViewModel(employeeListUseCase, EmployeePresentMapper);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }

@@ -9,36 +9,21 @@ import android.util.Log;
 
 import com.kienht.androidcleanarchitectureboilerplate.R;
 import com.kienht.androidcleanarchitectureboilerplate.features.base.BaseActivity;
-import com.kienht.androidcleanarchitectureboilerplate.features.home.adapter.EmployeesAdapter;
-import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeViewModel;
+import com.kienht.androidcleanarchitectureboilerplate.features.home.adapter.EmployeeAdapter;
+import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeMapper;
+import com.kienht.androidcleanarchitectureboilerplate.model.employee.Employee;
 import com.kienht.cache.database.RoomDB;
-import com.kienht.cache.model.EmployeeCached;
-import com.kienht.data.EmployeeRepositoryImpl;
-import com.kienht.data.repository.employee.EmployeeCache;
-import com.kienht.data.repository.employee.EmployeeRemote;
-import com.kienht.domain.repository.EmployeeRepository;
 import com.kienht.presentation.data.ResourceState;
 import com.kienht.presentation.features.home.HomeViewModel;
 import com.kienht.presentation.features.home.HomeViewModelFactory;
-import com.kienht.presentation.model.EmployeeView;
-import com.kienht.remote.mapper.employee.EmployeeMapper;
+import com.kienht.presentation.model.EmployeePresent;
 
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import butterknife.BindView;
-import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
-import io.reactivex.SingleSource;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-
-import static com.kienht.presentation.data.ResourceState.ERROR;
-import static com.kienht.presentation.data.ResourceState.LOADING;
-import static com.kienht.presentation.data.ResourceState.SUCCESS;
 
 public class HomeActivity extends BaseActivity {
 
@@ -51,13 +36,13 @@ public class HomeActivity extends BaseActivity {
     HomeViewModelFactory homeViewModelFactory;
 
     @Inject
-    EmployeesAdapter employeesAdapter;
+    EmployeeAdapter employeeAdapter;
 
     @Inject
     RoomDB roomDB;
 
     @Inject
-    com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeMapper employeeMapper;
+    EmployeeMapper employeeMapper;
 
     private HomeViewModel homeViewModel;
 
@@ -89,10 +74,10 @@ public class HomeActivity extends BaseActivity {
         mRcvEmployee.setLayoutManager(new LinearLayoutManager(this));
         mRcvEmployee.setHasFixedSize(true);
         mRcvEmployee.setItemAnimator(null);
-        mRcvEmployee.setAdapter(employeesAdapter);
+        mRcvEmployee.setAdapter(employeeAdapter);
     }
 
-    private void handleDataState(ResourceState resourceState, List<EmployeeView> data, String message) {
+    private void handleDataState(ResourceState resourceState, List<EmployeePresent> data, String message) {
         switch (resourceState) {
             case LOADING:
                 setupScreenForLoadingState();
@@ -110,13 +95,13 @@ public class HomeActivity extends BaseActivity {
         Log.e(TAG, "setupScreenForLoadingState: LOADING");
     }
 
-    private void setupScreenForSuccess(List<EmployeeView> data) {
+    private void setupScreenForSuccess(List<EmployeePresent> data) {
         Log.e(TAG, "setupScreenForSuccess: SUCCESS");
-        List<EmployeeViewModel> list = Observable.fromIterable(data)
-                .map(employeeView -> employeeMapper.mapToViewModel(employeeView))
+        List<Employee> list = Observable.fromIterable(data)
+                .map(employeePresent -> employeeMapper.mapToViewModel(employeePresent))
                 .toList()
                 .blockingGet();
-        employeesAdapter.swapData(list);
+        employeeAdapter.swapData(list);
     }
 
     private void setupScreenForError(String message) {

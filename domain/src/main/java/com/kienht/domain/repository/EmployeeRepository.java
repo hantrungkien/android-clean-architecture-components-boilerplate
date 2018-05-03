@@ -1,6 +1,6 @@
 package com.kienht.domain.repository;
 
-import com.kienht.domain.model.Employee;
+import com.kienht.domain.model.EmployeeDomain;
 
 import java.util.List;
 
@@ -13,8 +13,8 @@ import io.reactivex.Flowable;
  */
 public interface EmployeeRepository {
 
-    Completable saveEmployees(List<Employee> employees);
+    Completable saveEmployees(List<EmployeeDomain> employeeDomains);
 
-    Flowable<List<Employee>> getEmployeeList();
+    Flowable<List<EmployeeDomain>> getEmployeeList();
 
 }

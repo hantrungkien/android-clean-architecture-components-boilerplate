@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.kienht.androidcleanarchitectureboilerplate.R;
-import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeViewModel;
+import com.kienht.androidcleanarchitectureboilerplate.model.employee.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,12 +22,12 @@ import butterknife.ButterKnife;
  * Note:
  * Created by kienht on 5/3/18.
  */
-public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.EmployeesViewHolder> {
+public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeesViewHolder> {
 
-    private List<EmployeeViewModel> employeeViewModelList = new ArrayList<>();
+    private List<Employee> employeeList = new ArrayList<>();
 
     @Inject
-    public EmployeesAdapter() {
+    public EmployeeAdapter() {
     }
 
     @NonNull
@@ -39,17 +39,17 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
 
     @Override
     public void onBindViewHolder(@NonNull EmployeesViewHolder holder, int position) {
-        holder.bindData(employeeViewModelList.get(position));
+        holder.bindData(employeeList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return employeeViewModelList.size();
+        return employeeList.size();
     }
 
-    public void swapData(List<EmployeeViewModel> data) {
-        this.employeeViewModelList.clear();
-        this.employeeViewModelList.addAll(data);
+    public void swapData(List<Employee> data) {
+        this.employeeList.clear();
+        this.employeeList.addAll(data);
         notifyDataSetChanged();
     }
 
@@ -63,8 +63,8 @@ public class EmployeesAdapter extends RecyclerView.Adapter<EmployeesAdapter.Empl
             ButterKnife.bind(this, itemView);
         }
 
-        void bindData(EmployeeViewModel employeeViewModel) {
-            mTextName.setText(employeeViewModel.getName());
+        void bindData(Employee employee) {
+            mTextName.setText(employee.getName());
         }
     }
 }

@@ -3,14 +3,16 @@ package com.kienht.androidcleanarchitectureboilerplate.di;
 import com.kienht.cache.PrefUtils;
 import com.kienht.cache.database.RoomDB;
 import com.kienht.cache.features.employee.EmployeeCacheImpl;
+import com.kienht.cache.mapper.employee.EmployeeCacheMapper;
 import com.kienht.data.EmployeeRepositoryImpl;
-import com.kienht.data.mapper.employee.EmployeeMapper;
+import com.kienht.data.mapper.employee.EmployeeDataMapper;
 import com.kienht.data.repository.employee.EmployeeCache;
 import com.kienht.data.repository.employee.EmployeeRemote;
 import com.kienht.data.source.EmployeeDataStoreFactory;
 import com.kienht.domain.repository.EmployeeRepository;
 import com.kienht.remote.OICService;
 import com.kienht.remote.features.employee.EmployeeRemoteImpl;
+import com.kienht.remote.mapper.employee.EmployeeRemoteMapper;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -30,14 +32,14 @@ abstract class RepositoryModule {
 
     @Singleton
     @Provides
-    static EmployeeRepository oicEmployeeRepository(EmployeeDataStoreFactory employeeDataStoreFactory, EmployeeMapper employeeMapper) {
-        return new EmployeeRepositoryImpl(employeeDataStoreFactory, employeeMapper);
+    static EmployeeRepository oicEmployeeRepository(EmployeeDataStoreFactory employeeDataStoreFactory, EmployeeDataMapper EmployeeDataMapper) {
+        return new EmployeeRepositoryImpl(employeeDataStoreFactory, EmployeeDataMapper);
     }
 
     @Singleton
     @Provides
     static EmployeeCache employeeCache(RoomDB roomDB,
-                                       com.kienht.cache.mapper.employee.EmployeeMapper mapper,
+                                       EmployeeCacheMapper mapper,
                                        PrefUtils prefUtils,
                                        @Named("SchedulerType.COMPUTATION") Scheduler schedulerComputation) {
         return new EmployeeCacheImpl(roomDB, mapper, prefUtils, schedulerComputation);
@@ -46,7 +48,7 @@ abstract class RepositoryModule {
     @Singleton
     @Provides
     static EmployeeRemote employeeRemote(OICService oicService,
-                                         com.kienht.remote.mapper.employee.EmployeeMapper employeeMapper) {
-        return new EmployeeRemoteImpl(oicService, employeeMapper);
+                                         EmployeeRemoteMapper EmployeeRemoteMapper) {
+        return new EmployeeRemoteImpl(oicService, EmployeeRemoteMapper);
     }
 }
