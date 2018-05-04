@@ -51,6 +51,8 @@ A special thanks go to the authors involved with these repositories, they were a
 
 - https://overflow.buffer.com/2017/10/13/package-feature-modularised-android-projects/
 
+- https://proandroiddev.com/how-to-android-dagger-2-10-2-11-butterknife-mvp-part-1-eb0f6b970fd
+
 - https://github.com/android10/Android-CleanArchitecture
 
 - https://github.com/googlesamples/android-architecture
