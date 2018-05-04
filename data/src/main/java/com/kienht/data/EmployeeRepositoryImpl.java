@@ -20,18 +20,18 @@ import io.reactivex.functions.Function;
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     private EmployeeDataStoreFactory employeeDataStoreFactory;
-    private EmployeeDataMapper EmployeeDataMapper;
+    private EmployeeDataMapper employeeDataMapper;
 
     @Inject
-    public EmployeeRepositoryImpl(EmployeeDataStoreFactory employeeDataStoreFactory, EmployeeDataMapper EmployeeDataMapper) {
+    public EmployeeRepositoryImpl(EmployeeDataStoreFactory employeeDataStoreFactory, EmployeeDataMapper employeeDataMapper) {
         this.employeeDataStoreFactory = employeeDataStoreFactory;
-        this.EmployeeDataMapper = EmployeeDataMapper;
+        this.employeeDataMapper = employeeDataMapper;
     }
 
     @Override
     public Completable saveEmployees(List<EmployeeDomain> employeeDomains) {
         List<EmployeeData> list = Observable.fromIterable(employeeDomains)
-                .map(employee -> EmployeeDataMapper.mapFromEntity(employee))
+                .map(employee -> employeeDataMapper.mapFromEntity(employee))
                 .toList()
                 .blockingGet();
         return employeeDataStoreFactory.retrieveCacheDataStore().saveEmployees(list);
@@ -44,7 +44,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                         employeeDataStoreFactory.retrieveDataStore(isCache).getEmployees())
                 .flatMap((Function<List<EmployeeData>, Publisher<List<EmployeeDomain>>>) employeeEntities ->
                         Flowable.fromIterable(employeeEntities)
-                                .map(employeeEntity -> EmployeeDataMapper.mapToEntity(employeeEntity))
+                                .map(employeeEntity -> employeeDataMapper.mapToEntity(employeeEntity))
                                 .toList()
                                 .toFlowable())
                 .flatMap(employees -> saveEmployees(employees).toSingle(() -> employees).toFlowable());
