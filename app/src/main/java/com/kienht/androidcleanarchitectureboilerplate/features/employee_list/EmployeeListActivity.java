@@ -1,4 +1,4 @@
-package com.kienht.androidcleanarchitectureboilerplate.features.home;
+package com.kienht.androidcleanarchitectureboilerplate.features.employee_list;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
@@ -9,13 +9,12 @@ import android.util.Log;
 
 import com.kienht.androidcleanarchitectureboilerplate.R;
 import com.kienht.androidcleanarchitectureboilerplate.features.base.BaseActivity;
-import com.kienht.androidcleanarchitectureboilerplate.features.home.adapter.EmployeeAdapter;
+import com.kienht.androidcleanarchitectureboilerplate.features.employee_list.adapter.EmployeeAdapter;
 import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeMapper;
 import com.kienht.androidcleanarchitectureboilerplate.model.employee.Employee;
-import com.kienht.cache.database.RoomDB;
 import com.kienht.presentation.data.ResourceState;
-import com.kienht.presentation.features.home.HomeViewModel;
-import com.kienht.presentation.features.home.HomeViewModelFactory;
+import com.kienht.presentation.features.employee_list.EmployeeListViewModel;
+import com.kienht.presentation.features.employee_list.EmployeeListViewModelFactory;
 import com.kienht.presentation.model.EmployeePresent;
 
 import java.util.List;
@@ -25,37 +24,34 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import io.reactivex.Observable;
 
-public class HomeActivity extends BaseActivity {
+public class EmployeeListActivity extends BaseActivity {
 
-    public static final String TAG = HomeActivity.class.getSimpleName();
+    public static final String TAG = EmployeeListActivity.class.getSimpleName();
 
     @BindView(R.id.list_employee)
     RecyclerView mRcvEmployee;
 
     @Inject
-    HomeViewModelFactory homeViewModelFactory;
+    EmployeeListViewModelFactory employeeListViewModelFactory;
 
     @Inject
     EmployeeAdapter employeeAdapter;
 
     @Inject
-    RoomDB roomDB;
-
-    @Inject
     EmployeeMapper employeeMapper;
 
-    private HomeViewModel homeViewModel;
+    private EmployeeListViewModel employeeListViewModel;
 
     @Override
     public int getLayoutRes() {
-        return R.layout.home_main;
+        return R.layout.employee_list_activity;
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        homeViewModel = ViewModelProviders.of(this, homeViewModelFactory).get(HomeViewModel.class);
+        employeeListViewModel = ViewModelProviders.of(this, employeeListViewModelFactory).get(EmployeeListViewModel.class);
 
         initRcvEmployees();
     }
@@ -63,7 +59,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        homeViewModel.getEmployees().observe(this, listResource -> {
+        employeeListViewModel.getEmployees().observe(this, listResource -> {
             if (listResource != null) {
                 handleDataState(listResource.getStatus(), listResource.getData(), listResource.getMessage());
             }

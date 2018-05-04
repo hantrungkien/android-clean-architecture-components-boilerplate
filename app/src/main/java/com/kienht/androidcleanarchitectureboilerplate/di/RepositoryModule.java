@@ -2,7 +2,7 @@ package com.kienht.androidcleanarchitectureboilerplate.di;
 
 import com.kienht.cache.PrefUtils;
 import com.kienht.cache.database.RoomDB;
-import com.kienht.cache.features.employee.EmployeeCacheImpl;
+import com.kienht.cache.features.employee_list.EmployeeCacheImpl;
 import com.kienht.cache.mapper.employee.EmployeeCacheMapper;
 import com.kienht.data.EmployeeRepositoryImpl;
 import com.kienht.data.mapper.employee.EmployeeDataMapper;
@@ -11,7 +11,7 @@ import com.kienht.data.repository.employee.EmployeeRemote;
 import com.kienht.data.source.EmployeeDataStoreFactory;
 import com.kienht.domain.repository.EmployeeRepository;
 import com.kienht.remote.OICService;
-import com.kienht.remote.features.employee.EmployeeRemoteImpl;
+import com.kienht.remote.features.employee_list.EmployeeRemoteImpl;
 import com.kienht.remote.mapper.employee.EmployeeRemoteMapper;
 
 import javax.inject.Named;

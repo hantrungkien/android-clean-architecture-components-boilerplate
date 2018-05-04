@@ -18,10 +18,10 @@ package com.kienht.androidcleanarchitectureboilerplate.di;
 
 import android.app.Application;
 
-import com.kienht.androidcleanarchitectureboilerplate.features.home.HomeActivity;
+import com.kienht.androidcleanarchitectureboilerplate.features.employee_list.EmployeeListActivity;
 import com.kienht.androidcleanarchitectureboilerplate.OICApplication;
 import com.kienht.androidcleanarchitectureboilerplate.di.scope.PerActivity;
-import com.kienht.androidcleanarchitectureboilerplate.features.home.module.HomeActivityModule;
+import com.kienht.androidcleanarchitectureboilerplate.features.employee_list.module.EmployeeListActivityModule;
 
 import javax.inject.Singleton;
 
@@ -29,7 +29,6 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.ContributesAndroidInjector;
-import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
  * Note:
@@ -44,8 +43,8 @@ abstract class AppModule {
     abstract Application application(OICApplication app);
 
     @PerActivity
-    @ContributesAndroidInjector(modules = HomeActivityModule.class)
-    abstract HomeActivity homeActivityInjector();
+    @ContributesAndroidInjector(modules = EmployeeListActivityModule.class)
+    abstract EmployeeListActivity homeActivityInjector();
 
 
 

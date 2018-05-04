@@ -2,6 +2,7 @@ allprojects {
     repositories {
         jcenter()
         google()
+        maven { url "https://jitpack.io" }
     }
     afterEvaluate {
         tasks.withType(JavaCompile.class) {

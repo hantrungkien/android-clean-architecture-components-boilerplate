@@ -1,4 +1,4 @@
-package com.kienht.androidcleanarchitectureboilerplate.features.home.adapter;
+package com.kienht.androidcleanarchitectureboilerplate.features.employee_list.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kienht.androidcleanarchitectureboilerplate.R;
 import com.kienht.androidcleanarchitectureboilerplate.model.employee.Employee;
 
@@ -17,6 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Note:
@@ -39,7 +43,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
     @Override
     public void onBindViewHolder(@NonNull EmployeesViewHolder holder, int position) {
-        holder.bindData(employeeList.get(position));
+        holder.bindData(employeeList.get(position), position);
     }
 
     @Override
@@ -58,13 +62,30 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         @BindView(R.id.text_name)
         TextView mTextName;
 
+        @BindView(R.id.text_thanks)
+        TextView mTextThanks;
+
+        @BindView(R.id.image_avatar)
+        CircleImageView mImageAvatar;
+
+        private RequestManager mGlide;
+
         public EmployeesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            mGlide = Glide.with(itemView.getContext());
         }
 
-        void bindData(Employee employee) {
+        void bindData(Employee employee, int position) {
+            mTextThanks.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
             mTextName.setText(employee.getName());
+
+            mGlide.load(employee.getImgUrl())
+                    .dontAnimate()
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .into(mImageAvatar);
+
+
         }
     }
 }

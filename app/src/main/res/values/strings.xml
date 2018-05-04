@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AndroidCleanArchitectureBoilerplate</string>
+    <string name="special_thanks_goes_to">A special thanks goes to</string>
 </resources>

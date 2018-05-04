@@ -1,4 +1,4 @@
-package com.kienht.presentation.features.home;
+package com.kienht.presentation.features.employee_list;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -22,7 +22,7 @@ import io.reactivex.subscribers.DisposableSubscriber;
  * Note:
  * Created by kienht on 5/1/18.
  */
-public class HomeViewModel extends ViewModel {
+public class EmployeeListViewModel extends ViewModel {
 
     private EmployeeListUseCase employeeListUseCase;
     private EmployeePresentMapper EmployeePresentMapper;
@@ -30,7 +30,7 @@ public class HomeViewModel extends ViewModel {
     private MutableLiveData<Resource<List<EmployeePresent>>> employeesLiveData = new MutableLiveData<>();
 
     @Inject
-    public HomeViewModel(EmployeeListUseCase employeeListUseCase, EmployeePresentMapper EmployeePresentMapper) {
+    public EmployeeListViewModel(EmployeeListUseCase employeeListUseCase, EmployeePresentMapper EmployeePresentMapper) {
         this.employeeListUseCase = employeeListUseCase;
         this.EmployeePresentMapper = EmployeePresentMapper;
     }
