@@ -39,7 +39,7 @@ Again to note, use Clean Architecture where appropriate. That decision is down t
 
 ## Thanks
 
-A special thanks to the authors involved with these repositories, they were a great resource during our learning!
+A special thanks go to the authors involved with these repositories, they were a great resource during our learning!
 
 - https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html
 
