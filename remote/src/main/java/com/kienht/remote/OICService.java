@@ -8,8 +8,8 @@ import retrofit2.http.GET;
 
 public interface OICService {
 
-    String URL_SERVER = "http://82.115.100.250:8989/sendbyfriend/rest/";
+    String URL_SERVER = "http://oicsoft.com/api_v1/";
 
-    @GET("/getInformation")
-    Single<EmployeeListResponse> getInformation();
+    @GET("/emoployee_list")
+    Single<EmployeeListResponse> getEmployeeList();
 }
