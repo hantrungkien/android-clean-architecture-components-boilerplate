@@ -17,7 +17,6 @@
 package com.kienht.androidcleanarchitectureboilerplate.di;
 
 import com.kienht.androidcleanarchitectureboilerplate.OICApplication;
-import com.kienht.androidcleanarchitectureboilerplate.features.base.module.BaseActivityModule;
 
 import javax.inject.Singleton;
 

@@ -17,11 +17,16 @@
 package com.kienht.androidcleanarchitectureboilerplate.di;
 
 import android.app.Application;
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
 
+import com.kienht.androidcleanarchitectureboilerplate.di.key.ViewModelKey;
 import com.kienht.androidcleanarchitectureboilerplate.features.employee_list.EmployeeListActivity;
 import com.kienht.androidcleanarchitectureboilerplate.OICApplication;
 import com.kienht.androidcleanarchitectureboilerplate.di.scope.PerActivity;
 import com.kienht.androidcleanarchitectureboilerplate.features.employee_list.module.EmployeeListActivityModule;
+import com.kienht.presentation.features.OICViewModelFactory;
+import com.kienht.presentation.features.employee_list.EmployeeListViewModel;
 
 import javax.inject.Singleton;
 
@@ -29,13 +34,14 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.android.AndroidInjectionModule;
 import dagger.android.ContributesAndroidInjector;
+import dagger.multibindings.IntoMap;
 
 /**
  * Note:
  * Created by kienht on 4/30/18.
  */
 
-@Module(includes = AndroidInjectionModule.class)
+@Module(includes = {AndroidInjectionModule.class, ViewModelModule.class})
 abstract class AppModule {
 
     @Binds
@@ -46,6 +52,7 @@ abstract class AppModule {
     @ContributesAndroidInjector(modules = EmployeeListActivityModule.class)
     abstract EmployeeListActivity homeActivityInjector();
 
-
+    @Binds
+    abstract ViewModelProvider.Factory bindViewModelFactory(OICViewModelFactory OICViewModelFactory);
 
 }

@@ -1,5 +1,6 @@
 package com.kienht.androidcleanarchitectureboilerplate.features.employee_list;
 
+import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeMap
 import com.kienht.androidcleanarchitectureboilerplate.model.employee.Employee;
 import com.kienht.presentation.data.ResourceState;
 import com.kienht.presentation.features.employee_list.EmployeeListViewModel;
-import com.kienht.presentation.features.employee_list.EmployeeListViewModelFactory;
 import com.kienht.presentation.model.EmployeePresent;
 
 import java.util.List;
@@ -32,13 +32,13 @@ public class EmployeeListActivity extends BaseActivity {
     RecyclerView mRcvEmployee;
 
     @Inject
-    EmployeeListViewModelFactory employeeListViewModelFactory;
-
-    @Inject
     EmployeeAdapter employeeAdapter;
 
     @Inject
     EmployeeMapper employeeMapper;
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
 
     private EmployeeListViewModel employeeListViewModel;
 
@@ -51,7 +51,7 @@ public class EmployeeListActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        employeeListViewModel = ViewModelProviders.of(this, employeeListViewModelFactory).get(EmployeeListViewModel.class);
+        employeeListViewModel = ViewModelProviders.of(this, viewModelFactory).get(EmployeeListViewModel.class);
 
         initRcvEmployees();
     }
