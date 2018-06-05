@@ -1,26 +1,17 @@
 package com.kienht.androidcleanarchitectureboilerplate.di;
 
-import com.kienht.cache.PrefUtils;
-import com.kienht.cache.database.RoomDB;
 import com.kienht.cache.features.employee_list.EmployeeCacheImpl;
-import com.kienht.cache.mapper.employee.EmployeeCacheMapper;
 import com.kienht.data.EmployeeRepositoryImpl;
-import com.kienht.data.mapper.employee.EmployeeDataMapper;
 import com.kienht.data.repository.employee.EmployeeCache;
 import com.kienht.data.repository.employee.EmployeeRemote;
-import com.kienht.data.source.EmployeeDataStoreFactory;
 import com.kienht.domain.repository.EmployeeRepository;
-import com.kienht.remote.OICService;
 import com.kienht.remote.features.employee_list.EmployeeRemoteImpl;
-import com.kienht.remote.mapper.employee.EmployeeRemoteMapper;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
+import dagger.Binds;
 import dagger.Module;
-import dagger.Provides;
 import dagger.android.AndroidInjectionModule;
-import io.reactivex.Scheduler;
 
 /**
  * Note:
@@ -31,24 +22,14 @@ import io.reactivex.Scheduler;
 abstract class RepositoryModule {
 
     @Singleton
-    @Provides
-    static EmployeeRepository oicEmployeeRepository(EmployeeDataStoreFactory employeeDataStoreFactory, EmployeeDataMapper EmployeeDataMapper) {
-        return new EmployeeRepositoryImpl(employeeDataStoreFactory, EmployeeDataMapper);
-    }
+    @Binds
+    abstract EmployeeRepository employeeRepository(EmployeeRepositoryImpl employeeRepositoryImpl);
 
     @Singleton
-    @Provides
-    static EmployeeCache employeeCache(RoomDB roomDB,
-                                       EmployeeCacheMapper mapper,
-                                       PrefUtils prefUtils,
-                                       @Named("SchedulerType.COMPUTATION") Scheduler schedulerComputation) {
-        return new EmployeeCacheImpl(roomDB, mapper, prefUtils, schedulerComputation);
-    }
+    @Binds
+    abstract EmployeeCache employeeCache(EmployeeCacheImpl employeeCacheImpl);
 
     @Singleton
-    @Provides
-    static EmployeeRemote employeeRemote(OICService oicService,
-                                         EmployeeRemoteMapper EmployeeRemoteMapper) {
-        return new EmployeeRemoteImpl(oicService, EmployeeRemoteMapper);
-    }
+    @Binds
+    abstract EmployeeRemote employeeRemote(EmployeeRemoteImpl employeeRemoteImpl);
 }

@@ -5,11 +5,14 @@ import com.kienht.data.model.EmployeeData;
 import com.kienht.domain.model.EmployeeDomain;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Note:
  * Created by kienht on 5/2/18.
  */
+
+@Singleton
 public class EmployeeDataMapper implements Mapper<EmployeeData, EmployeeDomain> {
 
     @Inject

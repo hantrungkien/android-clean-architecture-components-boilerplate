@@ -22,6 +22,7 @@ import io.reactivex.subscribers.DisposableSubscriber;
  * Note:
  * Created by kienht on 5/1/18.
  */
+
 public class EmployeeListViewModel extends ViewModel {
 
     private EmployeeListUseCase employeeListUseCase;

@@ -9,6 +9,8 @@ import com.kienht.data.repository.employee.EmployeeCache;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -20,23 +22,29 @@ import io.reactivex.Single;
  * Note:
  * Created by kienht on 5/2/18.
  */
+
+@Singleton
 public class EmployeeCacheImpl implements EmployeeCache {
 
     public static final String TAG = EmployeeCacheImpl.class.getSimpleName();
 
     private final long EXPIRATION_TIME = 60 * 10 * 1000;
 
-    private RoomDB roomDB;
-    private EmployeeCacheMapper mapper;
-    private PrefUtils prefUtils;
-    private Scheduler schedulerComputation;
+    @Inject
+    RoomDB roomDB;
 
     @Inject
-    public EmployeeCacheImpl(RoomDB roomDB, EmployeeCacheMapper mapper, PrefUtils prefUtils, Scheduler schedulerComputation) {
-        this.roomDB = roomDB;
-        this.mapper = mapper;
-        this.prefUtils = prefUtils;
-        this.schedulerComputation = schedulerComputation;
+    EmployeeCacheMapper mapper;
+
+    @Inject
+    PrefUtils prefUtils;
+
+    @Inject
+    @Named("SchedulerType.COMPUTATION")
+    Scheduler schedulerComputation;
+
+    @Inject
+    public EmployeeCacheImpl() {
     }
 
     @Override

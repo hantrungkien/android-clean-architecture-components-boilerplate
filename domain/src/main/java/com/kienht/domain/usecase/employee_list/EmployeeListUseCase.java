@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
@@ -16,6 +17,8 @@ import io.reactivex.Scheduler;
  * Note:
  * Created by kienht on 5/2/18.
  */
+
+@Singleton
 public class EmployeeListUseCase extends FlowableUseCase<List<EmployeeDomain>> {
 
     private EmployeeRepository employeeRepository;

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
@@ -19,15 +20,18 @@ import io.reactivex.SingleOnSubscribe;
  * Note:
  * Created by kienht on 5/2/18.
  */
+
+@Singleton
 public class EmployeeRemoteImpl implements EmployeeRemote {
 
-    private OICService oicService;
-    private EmployeeRemoteMapper EmployeeRemoteMapper;
+    @Inject
+    OICService oicService;
 
     @Inject
-    public EmployeeRemoteImpl(OICService oicService, EmployeeRemoteMapper EmployeeRemoteMapper) {
-        this.oicService = oicService;
-        this.EmployeeRemoteMapper = EmployeeRemoteMapper;
+    EmployeeRemoteMapper EmployeeRemoteMapper;
+
+    @Inject
+    public EmployeeRemoteImpl() {
     }
 
     @Override

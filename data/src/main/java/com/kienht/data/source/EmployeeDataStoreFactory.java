@@ -4,22 +4,27 @@ import com.kienht.data.repository.employee.EmployeeCache;
 import com.kienht.data.repository.employee.EmployeeDataStore;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Note:
  * Created by kienht on 5/2/18.
  */
+
+@Singleton
 public class EmployeeDataStoreFactory {
 
-    private EmployeeCache employeeCache;
-    private EmployeeCacheDataStore employeeCacheDataStore;
-    private EmployeeRemoteDataStore employeeRemoteDataStore;
+    @Inject
+    EmployeeCache employeeCache;
 
     @Inject
-    public EmployeeDataStoreFactory(EmployeeCache employeeCache, EmployeeCacheDataStore employeeCacheDataStore, EmployeeRemoteDataStore employeeRemoteDataStore) {
-        this.employeeCache = employeeCache;
-        this.employeeCacheDataStore = employeeCacheDataStore;
-        this.employeeRemoteDataStore = employeeRemoteDataStore;
+    EmployeeCacheDataStore employeeCacheDataStore;
+
+    @Inject
+    EmployeeRemoteDataStore employeeRemoteDataStore;
+
+    @Inject
+    public EmployeeDataStoreFactory(){
     }
 
     public EmployeeDataStore retrieveDataStore(boolean isCache) {

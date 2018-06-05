@@ -7,6 +7,7 @@ import com.kienht.data.repository.employee.EmployeeDataStore;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -16,13 +17,15 @@ import io.reactivex.Single;
  * Note:
  * Created by kienht on 5/2/18.
  */
+
+@Singleton
 public class EmployeeCacheDataStore implements EmployeeDataStore {
 
-    private EmployeeCache employeeCache;
+    @Inject
+    EmployeeCache employeeCache;
 
     @Inject
-    public EmployeeCacheDataStore(EmployeeCache employeeCache) {
-        this.employeeCache = employeeCache;
+    public EmployeeCacheDataStore() {
     }
 
     @Override

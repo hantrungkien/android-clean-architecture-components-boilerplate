@@ -11,21 +11,24 @@ import org.reactivestreams.Publisher;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
+@Singleton
 public class EmployeeRepositoryImpl implements EmployeeRepository {
 
-    private EmployeeDataStoreFactory employeeDataStoreFactory;
-    private EmployeeDataMapper employeeDataMapper;
+    @Inject
+    EmployeeDataStoreFactory employeeDataStoreFactory;
 
     @Inject
-    public EmployeeRepositoryImpl(EmployeeDataStoreFactory employeeDataStoreFactory, EmployeeDataMapper employeeDataMapper) {
-        this.employeeDataStoreFactory = employeeDataStoreFactory;
-        this.employeeDataMapper = employeeDataMapper;
+    EmployeeDataMapper employeeDataMapper;
+
+    @Inject
+    public EmployeeRepositoryImpl() {
     }
 
     @Override

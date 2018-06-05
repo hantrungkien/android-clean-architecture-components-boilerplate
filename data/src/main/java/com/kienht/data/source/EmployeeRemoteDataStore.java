@@ -7,6 +7,7 @@ import com.kienht.data.repository.employee.EmployeeRemote;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -16,13 +17,15 @@ import io.reactivex.Single;
  * Note:
  * Created by kienht on 5/2/18.
  */
+
+@Singleton
 public class EmployeeRemoteDataStore implements EmployeeDataStore {
 
-    private EmployeeRemote employeeRemote;
+    @Inject
+    EmployeeRemote employeeRemote;
 
     @Inject
-    public EmployeeRemoteDataStore(EmployeeRemote employeeRemote) {
-        this.employeeRemote = employeeRemote;
+    public EmployeeRemoteDataStore() {
     }
 
     @Override

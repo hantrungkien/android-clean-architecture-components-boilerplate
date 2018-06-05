@@ -53,6 +53,7 @@ abstract class AppModule {
     abstract EmployeeListActivity homeActivityInjector();
 
     @Binds
+    @Singleton
     abstract ViewModelProvider.Factory bindViewModelFactory(OICViewModelFactory OICViewModelFactory);
 
 }
