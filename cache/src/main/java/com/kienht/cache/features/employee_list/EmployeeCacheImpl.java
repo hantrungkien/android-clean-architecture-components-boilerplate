@@ -3,7 +3,7 @@ package com.kienht.cache.features.employee_list;
 import com.kienht.cache.PrefUtils;
 import com.kienht.cache.database.RoomDB;
 import com.kienht.cache.mapper.employee.EmployeeCacheMapper;
-import com.kienht.data.model.EmployeeData;
+import com.kienht.data.model.EmployeeEntity;
 import com.kienht.data.repository.employee.EmployeeCache;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class EmployeeCacheImpl implements EmployeeCache {
     }
 
     @Override
-    public Completable saveEmployees(List<EmployeeData> employees) {
+    public Completable saveEmployees(List<EmployeeEntity> employees) {
         return Observable.fromIterable(employees)
                 .map(employeeEntity -> mapper.mapToCached(employeeEntity))
                 .toList()
@@ -61,7 +61,7 @@ public class EmployeeCacheImpl implements EmployeeCache {
     }
 
     @Override
-    public Flowable<List<EmployeeData>> getEmployees() {
+    public Flowable<List<EmployeeEntity>> getEmployees() {
         return roomDB.employeeDAO().getEmployees()
                 .flatMapPublisher(employeeCacheds -> Flowable.fromIterable(employeeCacheds)
                         .map(employeeCached -> mapper.mapFromCached(employeeCached))

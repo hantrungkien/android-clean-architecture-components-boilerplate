@@ -4,12 +4,12 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.kienht.domain.model.EmployeeDomain;
+import com.kienht.domain.model.Employee;
 import com.kienht.domain.usecase.employee_list.EmployeeListUseCase;
 import com.kienht.presentation.data.Resource;
 import com.kienht.presentation.data.ResourceState;
 import com.kienht.presentation.mapper.employee.EmployeePresentMapper;
-import com.kienht.presentation.model.EmployeePresent;
+import com.kienht.presentation.model.EmployeeView;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class EmployeeListViewModel extends ViewModel {
     private EmployeeListUseCase employeeListUseCase;
     private EmployeePresentMapper EmployeePresentMapper;
 
-    private MutableLiveData<Resource<List<EmployeePresent>>> employeesLiveData = new MutableLiveData<>();
+    private MutableLiveData<Resource<List<EmployeeView>>> employeesLiveData = new MutableLiveData<>();
 
     @Inject
     public EmployeeListViewModel(EmployeeListUseCase employeeListUseCase, EmployeePresentMapper EmployeePresentMapper) {
@@ -42,7 +42,7 @@ public class EmployeeListViewModel extends ViewModel {
         super.onCleared();
     }
 
-    public LiveData<Resource<List<EmployeePresent>>> getEmployees() {
+    public LiveData<Resource<List<EmployeeView>>> getEmployees() {
         fetchEmployees();
         return employeesLiveData;
     }
@@ -52,15 +52,15 @@ public class EmployeeListViewModel extends ViewModel {
         employeeListUseCase.execute(new EmployeeSubscriber());
     }
 
-    private class EmployeeSubscriber extends DisposableSubscriber<List<EmployeeDomain>> {
+    private class EmployeeSubscriber extends DisposableSubscriber<List<Employee>> {
 
         @Override
-        public void onNext(List<EmployeeDomain> employeeDomains) {
-            List<EmployeePresent> employeePresents = Observable.fromIterable(employeeDomains)
+        public void onNext(List<Employee> employees) {
+            List<EmployeeView> employeeViews = Observable.fromIterable(employees)
                     .map(employee -> EmployeePresentMapper.mapToView(employee))
                     .toList()
                     .blockingGet();
-            employeesLiveData.postValue(new Resource<>(ResourceState.SUCCESS, employeePresents, null));
+            employeesLiveData.postValue(new Resource<>(ResourceState.SUCCESS, employeeViews, null));
         }
 
         @Override

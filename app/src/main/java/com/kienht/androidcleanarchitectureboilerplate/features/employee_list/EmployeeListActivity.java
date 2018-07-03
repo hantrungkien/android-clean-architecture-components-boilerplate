@@ -12,10 +12,10 @@ import com.kienht.androidcleanarchitectureboilerplate.R;
 import com.kienht.androidcleanarchitectureboilerplate.features.base.BaseActivity;
 import com.kienht.androidcleanarchitectureboilerplate.features.employee_list.adapter.EmployeeAdapter;
 import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeMapper;
-import com.kienht.androidcleanarchitectureboilerplate.model.employee.Employee;
+import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeViewModel;
 import com.kienht.presentation.data.ResourceState;
 import com.kienht.presentation.features.employee_list.EmployeeListViewModel;
-import com.kienht.presentation.model.EmployeePresent;
+import com.kienht.presentation.model.EmployeeView;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class EmployeeListActivity extends BaseActivity {
         mRcvEmployee.setAdapter(employeeAdapter);
     }
 
-    private void handleDataState(ResourceState resourceState, List<EmployeePresent> data, String message) {
+    private void handleDataState(ResourceState resourceState, List<EmployeeView> data, String message) {
         switch (resourceState) {
             case LOADING:
                 setupScreenForLoadingState();
@@ -91,10 +91,10 @@ public class EmployeeListActivity extends BaseActivity {
         Log.e(TAG, "setupScreenForLoadingState: LOADING");
     }
 
-    private void setupScreenForSuccess(List<EmployeePresent> data) {
+    private void setupScreenForSuccess(List<EmployeeView> data) {
         Log.e(TAG, "setupScreenForSuccess: SUCCESS");
-        List<Employee> list = Observable.fromIterable(data)
-                .map(employeePresent -> employeeMapper.mapToViewModel(employeePresent))
+        List<EmployeeViewModel> list = Observable.fromIterable(data)
+                .map(employeeView -> employeeMapper.mapToViewModel(employeeView))
                 .toList()
                 .blockingGet();
         employeeAdapter.swapData(list);

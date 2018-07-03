@@ -1,9 +1,9 @@
 package com.kienht.data;
 
 import com.kienht.data.mapper.employee.EmployeeDataMapper;
-import com.kienht.data.model.EmployeeData;
+import com.kienht.data.model.EmployeeEntity;
 import com.kienht.data.source.EmployeeDataStoreFactory;
-import com.kienht.domain.model.EmployeeDomain;
+import com.kienht.domain.model.Employee;
 import com.kienht.domain.repository.EmployeeRepository;
 
 import org.reactivestreams.Publisher;
@@ -32,8 +32,8 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Completable saveEmployees(List<EmployeeDomain> employeeDomains) {
-        List<EmployeeData> list = Observable.fromIterable(employeeDomains)
+    public Completable saveEmployees(List<Employee> employees) {
+        List<EmployeeEntity> list = Observable.fromIterable(employees)
                 .map(employee -> employeeDataMapper.mapFromEntity(employee))
                 .toList()
                 .blockingGet();
@@ -41,11 +41,11 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Flowable<List<EmployeeDomain>> getEmployeeList() {
+    public Flowable<List<Employee>> getEmployeeList() {
         return employeeDataStoreFactory.retrieveCacheDataStore().isCached()
-                .flatMapPublisher((Function<Boolean, Publisher<List<EmployeeData>>>) isCache ->
+                .flatMapPublisher((Function<Boolean, Publisher<List<EmployeeEntity>>>) isCache ->
                         employeeDataStoreFactory.retrieveDataStore(isCache).getEmployees())
-                .flatMap((Function<List<EmployeeData>, Publisher<List<EmployeeDomain>>>) employeeEntities ->
+                .flatMap((Function<List<EmployeeEntity>, Publisher<List<Employee>>>) employeeEntities ->
                         Flowable.fromIterable(employeeEntities)
                                 .map(employeeEntity -> employeeDataMapper.mapToEntity(employeeEntity))
                                 .toList()

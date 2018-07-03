@@ -12,7 +12,7 @@ import com.kienht.cache.database.constants.DBConstants;
  */
 
 @Entity(tableName = DBConstants.Employee.TABLE_NAME)
-public class EmployeeCache {
+public class EmployeeCached {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = DBConstants.Employee.COLUMN_ID)
@@ -24,7 +24,7 @@ public class EmployeeCache {
     @ColumnInfo(name = DBConstants.Employee.COLUMN_IMGURL)
     private String imgUrl;
 
-    public EmployeeCache(int id, String name, String imgUrl) {
+    public EmployeeCached(int id, String name, String imgUrl) {
         this.id = id;
         this.name = name;
         this.imgUrl = imgUrl;

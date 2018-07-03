@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kienht.androidcleanarchitectureboilerplate.R;
-import com.kienht.androidcleanarchitectureboilerplate.model.employee.Employee;
+import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeesViewHolder> {
 
-    private List<Employee> employeeList = new ArrayList<>();
+    private List<EmployeeViewModel> employeeList = new ArrayList<>();
 
     @Inject
     public EmployeeAdapter() {
@@ -51,7 +51,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         return employeeList.size();
     }
 
-    public void swapData(List<Employee> data) {
+    public void swapData(List<EmployeeViewModel> data) {
         this.employeeList.clear();
         this.employeeList.addAll(data);
         notifyDataSetChanged();
@@ -76,7 +76,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
             mGlide = Glide.with(itemView.getContext());
         }
 
-        void bindData(Employee employee, int position) {
+        void bindData(EmployeeViewModel employee, int position) {
             mTextThanks.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
             mTextName.setText(employee.getName());
 

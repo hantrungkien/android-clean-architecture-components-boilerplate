@@ -1,15 +1,16 @@
-package com.kienht.remote.model;
+package com.kienht.domain.model;
 
 /**
  * Note:
- * Created by kienht on 4/30/18.
+ * Created by kienht on 5/2/18.
  */
-public class EmployeeRemote {
+public class Employee {
+
     private int id;
     private String name;
     private String imgUrl;
 
-    public EmployeeRemote(int id, String name, String imgUrl) {
+    public Employee(int id, String name, String imgUrl) {
         this.id = id;
         this.name = name;
         this.imgUrl = imgUrl;

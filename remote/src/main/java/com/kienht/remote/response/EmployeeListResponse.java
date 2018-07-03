@@ -2,7 +2,7 @@ package com.kienht.remote.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.kienht.remote.model.EmployeeRemote;
+import com.kienht.remote.model.EmployeeModel;
 
 import java.util.List;
 
@@ -14,13 +14,13 @@ public class EmployeeListResponse extends BaseResponse{
 
     @SerializedName("data")
     @Expose
-    private List<EmployeeRemote> employeeRemoteList;
+    private List<EmployeeModel> employeeModelList;
 
-    public List<EmployeeRemote> getEmployeeRemoteList() {
-        return employeeRemoteList;
+    public List<EmployeeModel> getEmployeeRemoteList() {
+        return employeeModelList;
     }
 
-    public void setEmployeeRemoteList(List<EmployeeRemote> employeeRemoteList) {
-        this.employeeRemoteList = employeeRemoteList;
+    public void setEmployeeRemoteList(List<EmployeeModel> employeeModelList) {
+        this.employeeModelList = employeeModelList;
     }
 }

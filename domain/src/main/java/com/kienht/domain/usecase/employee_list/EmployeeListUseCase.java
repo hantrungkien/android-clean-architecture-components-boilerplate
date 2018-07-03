@@ -1,6 +1,6 @@
 package com.kienht.domain.usecase.employee_list;
 
-import com.kienht.domain.model.EmployeeDomain;
+import com.kienht.domain.model.Employee;
 import com.kienht.domain.repository.EmployeeRepository;
 import com.kienht.domain.usecase.FlowableUseCase;
 
@@ -19,7 +19,7 @@ import io.reactivex.Scheduler;
  */
 
 @Singleton
-public class EmployeeListUseCase extends FlowableUseCase<List<EmployeeDomain>> {
+public class EmployeeListUseCase extends FlowableUseCase<List<Employee>> {
 
     private EmployeeRepository employeeRepository;
 
@@ -32,7 +32,7 @@ public class EmployeeListUseCase extends FlowableUseCase<List<EmployeeDomain>> {
     }
 
     @Override
-    protected Flowable<List<EmployeeDomain>> buildUseCaseObservable() {
+    protected Flowable<List<Employee>> buildUseCaseObservable() {
         return employeeRepository.getEmployeeList();
     }
 }
