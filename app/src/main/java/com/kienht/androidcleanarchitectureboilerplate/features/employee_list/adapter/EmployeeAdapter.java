@@ -11,6 +11,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kienht.androidcleanarchitectureboilerplate.R;
+import com.kienht.androidcleanarchitectureboilerplate.features.base.GlideApp;
+import com.kienht.androidcleanarchitectureboilerplate.features.base.GlideRequests;
 import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeViewModel;
 
 import java.util.ArrayList;
@@ -68,12 +70,12 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         @BindView(R.id.image_avatar)
         CircleImageView mImageAvatar;
 
-        private RequestManager mGlide;
+        private GlideRequests mGlide;
 
         public EmployeesViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            mGlide = Glide.with(itemView.getContext());
+            mGlide = GlideApp.with(itemView.getContext());
         }
 
         void bindData(EmployeeViewModel employee, int position) {
@@ -82,7 +84,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
             mGlide.load(employee.getImgUrl())
                     .dontAnimate()
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(mImageAvatar);
 
 

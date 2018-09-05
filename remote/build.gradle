@@ -5,7 +5,7 @@ targetCompatibility = "1.8"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':data')
+    api project(':data')
 
     def remoteDependencies = rootProject.ext.remoteDependencies
     implementation remoteDependencies.retrofit

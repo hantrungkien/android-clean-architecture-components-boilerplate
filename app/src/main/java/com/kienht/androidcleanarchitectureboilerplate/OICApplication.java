@@ -26,23 +26,15 @@ public class OICApplication extends Application implements HasActivityInjector {
 
     public static final String TAG = OICApplication.class.getSimpleName();
 
-    private static OICApplication instance;
-
-    public synchronized static OICApplication getInstance() {
-        return instance;
-    }
-
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
         ProcessLifecycleOwner.get().getLifecycle().addObserver(new AppLifecycleListener());
 
         DaggerAppComponent.builder().create(this).inject(this);
-
     }
 
     @Override

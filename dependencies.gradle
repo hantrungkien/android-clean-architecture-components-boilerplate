@@ -20,12 +20,12 @@ ext {
     androidSupportVersion = '27.1.1'
     butterKnifeVersion = '8.8.1'
     rxJavaVersion = '2.2.0'
-    rxAndroidVersion = '2.0.2'
+    rxAndroidVersion = '2.1.0'
     rxPermissionVersion = '2.1.0'
     rxNetworkVersion = '2.0.0'
     okHttp3Version = '3.10.0'
     retrofitVersion = '2.4.0'
-    glideVersion = '3.8.0'
+    glideVersion = '4.8.0'
     daggerVersion = '2.16'
     lifecycleVersion = '1.1.1'
     multidexVersion = '1.0.3'
@@ -34,7 +34,7 @@ ext {
     firebaseVersion = '16.0.1'
     materialDialogVersion = '0.9.6.0'
     autoDimensionVersion = '1.0.3'
-    kProgressHUDVersion = '1.1.0'
+    kProgressHUDVersion = '1.2.0'
     calligraphyFontVersion = '2.3.0'
     gsonVersion = '2.8.5'
     parcelerVersion = '1.1.9'
@@ -55,6 +55,8 @@ ext {
             lifecycleExtensions   : "android.arch.lifecycle:extensions:${lifecycleVersion}",
             lifecycleProcessor    : "android.arch.lifecycle:compiler:${lifecycleVersion}",
             roomRx2               : "android.arch.persistence.room:rxjava2:${roomVersion}",
+            glide              : "com.github.bumptech.glide:glide:${glideVersion}",
+            glideProcessor               : "com.github.bumptech.glide:compiler:${glideVersion}",
             multiDex              : "com.android.support:multidex:${multidexVersion}"
     ]
 

@@ -6,7 +6,7 @@ targetCompatibility = "1.8"
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation project(':domain')
+    api project(':domain')
     def dataDependencies = rootProject.ext.dataDependencies
 
     implementation dataDependencies.rx2Java
