@@ -18,7 +18,7 @@ Clean Architecture will not be appropriate for every project, so it is down to y
 * [Android Architecture Components (Room, ViewModel, LiveData)](https://developer.android.com/topic/libraries/architecture/index.html)
 * Android Support Libraries
 * [RxJava2](https://github.com/ReactiveX/RxJava/wiki/What's-different-in-2.0)
-* [Dagger 2 (2.15)](https://github.com/google/dagger)
+* [Dagger 2 (2.16)](https://github.com/google/dagger)
 * [Glide](https://github.com/bumptech/glide)
 * [Retrofit](http://square.github.io/retrofit/)
 * [AutoDimension](https://github.com/hantrungkien/AutoDimension)
