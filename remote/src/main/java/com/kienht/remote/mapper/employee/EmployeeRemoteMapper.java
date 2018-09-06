@@ -5,11 +5,14 @@ import com.kienht.remote.mapper.Mapper;
 import com.kienht.remote.model.EmployeeModel;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Note:
  * Created by kienht on 5/2/18.
  */
+
+@Singleton
 public class EmployeeRemoteMapper implements Mapper<EmployeeModel, EmployeeEntity> {
 
     @Inject
