@@ -22,6 +22,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import dagger.android.AndroidInjector;
+import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
  * Note:
@@ -29,7 +30,8 @@ import dagger.android.AndroidInjector;
  */
 
 @Singleton
-@Component(modules = {AppModule.class,
+@Component(modules = {AndroidSupportInjectionModule.class,
+        AppModule.class,
         SchedulerModule.class,
         DataModule.class,
         NetworkModule.class,

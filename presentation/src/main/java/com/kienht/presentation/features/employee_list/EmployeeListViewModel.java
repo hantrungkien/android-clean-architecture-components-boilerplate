@@ -9,7 +9,7 @@ import com.kienht.domain.usecase.employee_list.EmployeeListUseCase;
 import com.kienht.presentation.data.Resource;
 import com.kienht.presentation.data.ResourceState;
 import com.kienht.presentation.mapper.employee.EmployeePresentMapper;
-import com.kienht.presentation.model.EmployeeView;
+import com.kienht.presentation.model.EmployeeViewData;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class EmployeeListViewModel extends ViewModel {
     private EmployeeListUseCase employeeListUseCase;
     private EmployeePresentMapper EmployeePresentMapper;
 
-    private MutableLiveData<Resource<List<EmployeeView>>> employeesLiveData = new MutableLiveData<>();
+    private MutableLiveData<Resource<List<EmployeeViewData>>> employeesLiveData = new MutableLiveData<>();
 
     @Inject
     public EmployeeListViewModel(EmployeeListUseCase employeeListUseCase, EmployeePresentMapper EmployeePresentMapper) {
@@ -42,7 +42,7 @@ public class EmployeeListViewModel extends ViewModel {
         super.onCleared();
     }
 
-    public LiveData<Resource<List<EmployeeView>>> getEmployees() {
+    public LiveData<Resource<List<EmployeeViewData>>> getEmployees() {
         fetchEmployees();
         return employeesLiveData;
     }
@@ -56,11 +56,11 @@ public class EmployeeListViewModel extends ViewModel {
 
         @Override
         public void onNext(List<Employee> employees) {
-            List<EmployeeView> employeeViews = Observable.fromIterable(employees)
+            List<EmployeeViewData> employeeViewData = Observable.fromIterable(employees)
                     .map(employee -> EmployeePresentMapper.mapToView(employee))
                     .toList()
                     .blockingGet();
-            employeesLiveData.postValue(new Resource<>(ResourceState.SUCCESS, employeeViews, null));
+            employeesLiveData.postValue(new Resource<>(ResourceState.SUCCESS, employeeViewData, null));
         }
 
         @Override

@@ -41,7 +41,7 @@ import dagger.multibindings.IntoMap;
  * Created by kienht on 4/30/18.
  */
 
-@Module(includes = {AndroidInjectionModule.class, ViewModelModule.class})
+@Module(includes = {ViewModelModule.class})
 abstract class AppModule {
 
     @Binds
