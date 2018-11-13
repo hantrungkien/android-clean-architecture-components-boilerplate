@@ -20,23 +20,13 @@ public abstract class FlowableUseCase<T> {
         this.postExecutionThread = postExecutionThread;
     }
 
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     protected abstract Flowable<T> buildUseCaseObservable();
 
-    public void execute(DisposableSubscriber<T> disposableSubscriber) {
-        Disposable disposable = buildUseCaseObservable()
+    public Disposable execute(DisposableSubscriber<T> disposableSubscriber) {
+        return buildUseCaseObservable()
                 .subscribeOn(threadExecutor)
                 .observeOn(postExecutionThread)
                 .subscribeWith(disposableSubscriber);
-
-        compositeDisposable.add(disposable);
     }
-
-    public void dispose() {
-        if (!compositeDisposable.isDisposed()) {
-            compositeDisposable.dispose();
-        }
-    }
-
 }

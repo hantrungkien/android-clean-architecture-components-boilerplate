@@ -18,7 +18,7 @@ import dagger.android.AndroidInjectionModule;
  * Created by kienht on 5/2/18.
  */
 
-@Module(includes = AndroidInjectionModule.class)
+@Module
 abstract class RepositoryModule {
 
     @Singleton

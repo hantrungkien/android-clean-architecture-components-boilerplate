@@ -1,18 +1,17 @@
 package com.kienht.androidcleanarchitectureboilerplate.features.employee_list;
 
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.Nullable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.kienht.androidcleanarchitectureboilerplate.R;
 import com.kienht.androidcleanarchitectureboilerplate.features.base.BaseActivity;
+import com.kienht.androidcleanarchitectureboilerplate.features.base.listener.OnClickEmployeeItemListener;
 import com.kienht.androidcleanarchitectureboilerplate.features.employee_list.adapter.EmployeeAdapter;
-import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeMapper;
-import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeViewModel;
 import com.kienht.presentation.data.ResourceState;
 import com.kienht.presentation.features.employee_list.EmployeeListViewModel;
 import com.kienht.presentation.model.EmployeeViewData;
@@ -22,9 +21,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import io.reactivex.Observable;
 
-public class EmployeeListActivity extends BaseActivity {
+public class EmployeeListActivity extends BaseActivity implements OnClickEmployeeItemListener {
 
     public static final String TAG = EmployeeListActivity.class.getSimpleName();
 
@@ -33,12 +31,6 @@ public class EmployeeListActivity extends BaseActivity {
 
     @Inject
     EmployeeAdapter employeeAdapter;
-
-    @Inject
-    EmployeeMapper employeeMapper;
-
-    @Inject
-    ViewModelProvider.Factory viewModelFactory;
 
     private EmployeeListViewModel employeeListViewModel;
 
@@ -64,6 +56,11 @@ public class EmployeeListActivity extends BaseActivity {
                 handleDataState(listResource.getStatus(), listResource.getData(), listResource.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onClickEmployee(EmployeeViewData employeeViewData) {
+        Toast.makeText(this, employeeViewData.getName(), Toast.LENGTH_SHORT).show();
     }
 
     private void initRcvEmployees() {
@@ -93,15 +90,10 @@ public class EmployeeListActivity extends BaseActivity {
 
     private void setupScreenForSuccess(List<EmployeeViewData> data) {
         Log.e(TAG, "setupScreenForSuccess: SUCCESS");
-        List<EmployeeViewModel> list = Observable.fromIterable(data)
-                .map(employeeViewData -> employeeMapper.mapToViewModel(employeeViewData))
-                .toList()
-                .blockingGet();
-        employeeAdapter.swapData(list);
+        employeeAdapter.swapData(data);
     }
 
     private void setupScreenForError(String message) {
         Log.e(TAG, "setupScreenForError" + message);
     }
-
 }

@@ -3,7 +3,7 @@ package com.kienht.remote.features.employee_list;
 import com.kienht.data.model.EmployeeEntity;
 import com.kienht.data.repository.employee.EmployeeRemote;
 import com.kienht.remote.OICService;
-import com.kienht.remote.mapper.employee.EmployeeRemoteMapper;
+import com.kienht.remote.mapper.employee.EmployeeModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +28,7 @@ public class EmployeeRemoteImpl implements EmployeeRemote {
     OICService oicService;
 
     @Inject
-    EmployeeRemoteMapper EmployeeRemoteMapper;
+    EmployeeModelMapper EmployeeModelMapper;
 
     @Inject
     public EmployeeRemoteImpl() {
@@ -46,6 +46,7 @@ public class EmployeeRemoteImpl implements EmployeeRemote {
 
                 e.onSuccess(employeeEntityList);
             }
-        }).toFlowable().delay(3, TimeUnit.SECONDS);
+        }).toFlowable()
+                .delay(3, TimeUnit.SECONDS);
     }
 }

@@ -21,14 +21,13 @@ import io.reactivex.Scheduler;
 @Singleton
 public class EmployeeListUseCase extends FlowableUseCase<List<Employee>> {
 
-    private EmployeeRepository employeeRepository;
+    @Inject
+    EmployeeRepository employeeRepository;
 
     @Inject
-    public EmployeeListUseCase(EmployeeRepository employeeRepository,
-                               @Named("SchedulerType.IO") Scheduler schedulerIO,
+    public EmployeeListUseCase(@Named("SchedulerType.IO") Scheduler schedulerIO,
                                @Named("SchedulerType.UI") Scheduler schedulerUI) {
         super(schedulerIO, schedulerUI);
-        this.employeeRepository = employeeRepository;
     }
 
     @Override

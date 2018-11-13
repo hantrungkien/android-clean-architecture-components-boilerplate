@@ -19,14 +19,14 @@ ext {
 
     androidSupportVersion = '27.1.1'
     butterKnifeVersion = '8.8.1'
-    rxJavaVersion = '2.2.0'
+    rxJavaVersion = '2.2.3'
     rxAndroidVersion = '2.1.0'
     rxPermissionVersion = '2.2.2'
     rxNetworkVersion = '2.1.0'
     okHttp3Version = '3.11.0'
     retrofitVersion = '2.4.0'
     glideVersion = '4.8.0'
-    daggerVersion = '2.17'
+    daggerVersion = '2.19'
     lifecycleVersion = '1.1.1'
     multidexVersion = '1.0.3'
     javaxAnnotationVersion = '1.0'
@@ -55,13 +55,13 @@ ext {
             lifecycleExtensions   : "android.arch.lifecycle:extensions:${lifecycleVersion}",
             lifecycleProcessor    : "android.arch.lifecycle:compiler:${lifecycleVersion}",
             roomRx2               : "android.arch.persistence.room:rxjava2:${roomVersion}",
-            glide              : "com.github.bumptech.glide:glide:${glideVersion}",
-            glideProcessor               : "com.github.bumptech.glide:compiler:${glideVersion}",
+            glide                 : "com.github.bumptech.glide:glide:${glideVersion}",
+            glideProcessor        : "com.github.bumptech.glide:compiler:${glideVersion}",
             multiDex              : "com.android.support:multidex:${multidexVersion}"
     ]
 
     presentationDependencies = [
-            rx2Java        : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rx2Java            : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             javaxAnnotation    : "javax.annotation:jsr250-api:${javaxAnnotationVersion}",
             javaxInject        : "javax.inject:javax.inject:${javaxInjectVersion}",
             lifecycleExtensions: "android.arch.lifecycle:extensions:${lifecycleVersion}",

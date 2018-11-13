@@ -10,10 +10,10 @@ import javax.inject.Inject;
  * Note:
  * Created by kienht on 5/2/18.
  */
-public class EmployeePresentMapper implements Mapper<Employee, EmployeeViewData> {
+public class EmployeeViewDataMapper implements Mapper<Employee, EmployeeViewData> {
 
     @Inject
-    public EmployeePresentMapper() {
+    public EmployeeViewDataMapper() {
     }
 
     @Override

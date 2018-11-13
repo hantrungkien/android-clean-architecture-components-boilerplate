@@ -13,14 +13,25 @@ import javax.inject.Singleton;
  */
 
 @Singleton
-public class EmployeeRemoteMapper implements Mapper<EmployeeModel, EmployeeEntity> {
+public class EmployeeModelMapper implements Mapper<EmployeeModel, EmployeeEntity> {
 
     @Inject
-    public EmployeeRemoteMapper() {
+    public EmployeeModelMapper() {
     }
 
     @Override
     public EmployeeEntity mapToEntity(EmployeeModel type) {
+        if (type == null) {
+            return null;
+        }
         return new EmployeeEntity(type.getId(), type.getName(), type.getImgUrl());
+    }
+
+    @Override
+    public EmployeeModel mapToModel(EmployeeEntity type) {
+        if (type == null) {
+            return null;
+        }
+        return new EmployeeModel(type.getId(), type.getName(), type.getImgUrl());
     }
 }

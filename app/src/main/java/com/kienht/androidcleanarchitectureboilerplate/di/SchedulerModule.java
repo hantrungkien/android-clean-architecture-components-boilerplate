@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by kienht on 5/2/18.
  */
 
-@Module(includes = AndroidInjectionModule.class)
+@Module
 abstract class SchedulerModule {
 
     @Singleton

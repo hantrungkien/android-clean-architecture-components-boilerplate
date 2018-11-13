@@ -5,8 +5,11 @@ package com.kienht.presentation.model;
  * Created by kienht on 5/1/18.
  */
 public class EmployeeViewData {
+
     private int id;
+
     private String name;
+
     private String imgUrl;
 
     public EmployeeViewData(int id, String name, String imgUrl) {

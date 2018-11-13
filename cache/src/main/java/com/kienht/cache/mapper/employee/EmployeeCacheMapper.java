@@ -12,19 +12,23 @@ import javax.inject.Inject;
  */
 public class EmployeeCacheMapper implements Mapper<EmployeeCached, EmployeeEntity> {
 
-    public static final String EMPLOYEE_MAPPER_CACHE = "EMPLOYEE_MAPPER_CACHE";
-
     @Inject
     public EmployeeCacheMapper() {
     }
 
     @Override
     public EmployeeEntity mapFromCached(EmployeeCached type) {
+        if (type == null) {
+            return null;
+        }
         return new EmployeeEntity(type.getId(), type.getName(), type.getImgUrl());
     }
 
     @Override
     public EmployeeCached mapToCached(EmployeeEntity type) {
+        if (type == null) {
+            return null;
+        }
         return new EmployeeCached(type.getId(), type.getName(), type.getImgUrl());
     }
 }

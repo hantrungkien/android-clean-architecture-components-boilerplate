@@ -53,8 +53,8 @@ public class EmployeeCacheImpl implements EmployeeCache {
                 .map(employeeEntity -> mapper.mapToCached(employeeEntity))
                 .toList()
                 .toFlowable()
-                .flatMapCompletable(employeeCacheds -> {
-                    roomDB.employeeDAO().insert(employeeCacheds);
+                .flatMapCompletable(employeesCached -> {
+                    roomDB.employeeDAO().insert(employeesCached);
                     return Completable.complete();
                 })
                 .subscribeOn(schedulerComputation);
@@ -63,7 +63,7 @@ public class EmployeeCacheImpl implements EmployeeCache {
     @Override
     public Flowable<List<EmployeeEntity>> getEmployees() {
         return roomDB.employeeDAO().getEmployees()
-                .flatMapPublisher(employeeCacheds -> Flowable.fromIterable(employeeCacheds)
+                .flatMapPublisher(employeesCached -> Flowable.fromIterable(employeesCached)
                         .map(employeeCached -> mapper.mapFromCached(employeeCached))
                         .toList()
                         .toFlowable())

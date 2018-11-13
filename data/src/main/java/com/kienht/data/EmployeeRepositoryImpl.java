@@ -1,6 +1,6 @@
 package com.kienht.data;
 
-import com.kienht.data.mapper.employee.EmployeeDataMapper;
+import com.kienht.data.mapper.employee.EmployeeEntityMapper;
 import com.kienht.data.model.EmployeeEntity;
 import com.kienht.data.source.EmployeeDataStoreFactory;
 import com.kienht.domain.model.Employee;
@@ -25,7 +25,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     EmployeeDataStoreFactory employeeDataStoreFactory;
 
     @Inject
-    EmployeeDataMapper employeeDataMapper;
+    EmployeeEntityMapper employeeEntityMapper;
 
     @Inject
     public EmployeeRepositoryImpl() {
@@ -34,7 +34,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public Completable saveEmployees(List<Employee> employees) {
         List<EmployeeEntity> list = Observable.fromIterable(employees)
-                .map(employee -> employeeDataMapper.mapFromEntity(employee))
+                .map(employee -> employeeEntityMapper.mapFromEntity(employee))
                 .toList()
                 .blockingGet();
         return employeeDataStoreFactory.retrieveCacheDataStore().saveEmployees(list);
@@ -47,7 +47,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
                         employeeDataStoreFactory.retrieveDataStore(isCache).getEmployees())
                 .flatMap((Function<List<EmployeeEntity>, Publisher<List<Employee>>>) employeeEntities ->
                         Flowable.fromIterable(employeeEntities)
-                                .map(employeeEntity -> employeeDataMapper.mapToEntity(employeeEntity))
+                                .map(employeeEntity -> employeeEntityMapper.mapToEntity(employeeEntity))
                                 .toList()
                                 .toFlowable())
                 .flatMap(employees -> saveEmployees(employees).toSingle(() -> employees).toFlowable());

@@ -7,30 +7,40 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.kienht.androidcleanarchitectureboilerplate.R;
+import com.kienht.androidcleanarchitectureboilerplate.di.scope.PerActivity;
+import com.kienht.androidcleanarchitectureboilerplate.features.base.BaseViewHolder;
 import com.kienht.androidcleanarchitectureboilerplate.features.base.GlideApp;
 import com.kienht.androidcleanarchitectureboilerplate.features.base.GlideRequests;
-import com.kienht.androidcleanarchitectureboilerplate.model.employee.EmployeeViewModel;
+import com.kienht.androidcleanarchitectureboilerplate.features.base.listener.OnClickEmployeeItemListener;
+import com.kienht.presentation.model.EmployeeViewData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Note:
  * Created by kienht on 5/3/18.
  */
+
+@PerActivity
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.EmployeesViewHolder> {
 
-    private List<EmployeeViewModel> employeeList = new ArrayList<>();
+    public static final String TAG = "EmployeeAdapter.OnClickEmployeeItemListener";
+
+    @Inject
+    @Named(EmployeeAdapter.TAG)
+    OnClickEmployeeItemListener onClickEmployeeItemListener;
+
+    private List<EmployeeViewData> employeeList = new ArrayList<>();
 
     @Inject
     public EmployeeAdapter() {
@@ -45,7 +55,7 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
     @Override
     public void onBindViewHolder(@NonNull EmployeesViewHolder holder, int position) {
-        holder.bindData(employeeList.get(position), position);
+        holder.bindData(employeeList.get(position));
     }
 
     @Override
@@ -53,13 +63,19 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
         return employeeList.size();
     }
 
-    public void swapData(List<EmployeeViewModel> data) {
+    @Override
+    public void onViewRecycled(@NonNull EmployeesViewHolder holder) {
+        super.onViewRecycled(holder);
+        GlideApp.with(holder.itemView.getContext()).clear(holder.mImageAvatar);
+    }
+
+    public void swapData(List<EmployeeViewData> data) {
         this.employeeList.clear();
         this.employeeList.addAll(data);
         notifyDataSetChanged();
     }
 
-    class EmployeesViewHolder extends RecyclerView.ViewHolder {
+    class EmployeesViewHolder extends BaseViewHolder<EmployeeViewData> {
 
         @BindView(R.id.text_name)
         TextView mTextName;
@@ -74,20 +90,23 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeAdapter.Employ
 
         public EmployeesViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
             mGlide = GlideApp.with(itemView.getContext());
         }
 
-        void bindData(EmployeeViewModel employee, int position) {
-            mTextThanks.setVisibility(position == 0 ? View.GONE : View.VISIBLE);
+        @Override
+        public void bindData(EmployeeViewData employee) {
+            mTextThanks.setVisibility(getAdapterPosition() == 0 ? View.GONE : View.VISIBLE);
             mTextName.setText(employee.getName());
 
             mGlide.load(employee.getImgUrl())
                     .dontAnimate()
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(mImageAvatar);
+        }
 
-
+        @OnClick(R.id.layout_root)
+        void onClickItem() {
+            onClickEmployeeItemListener.onClickEmployee(employeeList.get(getAdapterPosition()));
         }
     }
 }

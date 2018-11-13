@@ -2,6 +2,7 @@ package com.kienht.androidcleanarchitectureboilerplate.features.base;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.arch.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -32,6 +33,9 @@ public abstract class BaseActivity extends AppCompatActivity implements HasFragm
 
     @Inject
     DispatchingAndroidInjector<Fragment> fragmentInjector;
+
+    @Inject
+    public ViewModelProvider.Factory viewModelFactory;
 
     @LayoutRes
     public abstract int getLayoutRes();

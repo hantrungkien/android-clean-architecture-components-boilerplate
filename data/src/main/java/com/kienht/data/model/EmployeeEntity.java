@@ -5,8 +5,11 @@ package com.kienht.data.model;
  * Created by kienht on 5/2/18.
  */
 public class EmployeeEntity {
+
     private int id;
+
     private String name;
+
     private String imgUrl;
 
     public EmployeeEntity(int id, String name, String imgUrl) {

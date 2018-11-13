@@ -4,10 +4,10 @@ package com.kienht.cache.mapper;
  * Note:
  * Created by kienht on 5/2/18.
  */
-public interface Mapper<E, V> {
+public interface Mapper<C, E> {
 
-    V mapFromCached(E type);
+    E mapFromCached(C type);
 
-    E mapToCached(V type);
+    C mapToCached(E type);
 
 }

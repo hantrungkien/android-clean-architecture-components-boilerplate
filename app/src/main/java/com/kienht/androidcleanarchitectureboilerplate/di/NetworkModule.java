@@ -15,7 +15,7 @@ import dagger.android.AndroidInjectionModule;
  * Created by kienht on 4/30/18.
  */
 
-@Module(includes = AndroidInjectionModule.class)
+@Module
 abstract class NetworkModule {
 
     @Singleton

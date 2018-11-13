@@ -42,7 +42,6 @@ dependencies {
     implementation uiDependencies.rx2Android
     implementation uiDependencies.butterknife
     annotationProcessor uiDependencies.butterknifeProcessor
-    implementation uiDependencies.dagger
     implementation uiDependencies.daggerAndroid
     implementation uiDependencies.daggerAndroidSupport
     annotationProcessor uiDependencies.daggerProcessor

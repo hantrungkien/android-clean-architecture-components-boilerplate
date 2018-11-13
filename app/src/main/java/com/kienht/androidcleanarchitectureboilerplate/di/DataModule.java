@@ -19,7 +19,7 @@ import static com.kienht.cache.database.constants.DBConstants.DATABASE_NAME;
  * Created by kienht on 4/30/18.
  */
 
-@Module(includes = AndroidInjectionModule.class)
+@Module
 abstract class DataModule {
 
     @Singleton

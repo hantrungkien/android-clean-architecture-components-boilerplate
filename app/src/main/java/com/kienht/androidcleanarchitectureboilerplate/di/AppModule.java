@@ -52,8 +52,4 @@ abstract class AppModule {
     @ContributesAndroidInjector(modules = EmployeeListActivityModule.class)
     abstract EmployeeListActivity homeActivityInjector();
 
-    @Binds
-    @Singleton
-    abstract ViewModelProvider.Factory bindViewModelFactory(OICViewModelFactory OICViewModelFactory);
-
 }
